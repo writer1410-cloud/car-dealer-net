@@ -13,10 +13,10 @@ import { Badge, Card, SectionTitle } from "@/components/ui";
 
 const KIND_META: Record<
   Exclude<SuggestionKind, "ok">,
-  { label: string; emoji: string; tone: "soul" | "warn" | "good" }
+  { label: string; emoji: string; tone: "ink" | "warn" | "good" }
 > = {
   "afternoon-shift": { label: "午後への誘導", emoji: "🌤️", tone: "warn" },
-  "cross-store": { label: "近隣店舗へ振り分け", emoji: "🔄", tone: "soul" },
+  "cross-store": { label: "近隣店舗へ振り分け", emoji: "🔄", tone: "ink" },
   "staff-move": { label: "スタッフ応援配置", emoji: "🤝", tone: "good" },
 };
 
@@ -60,7 +60,7 @@ export default function AiPage() {
       />
 
       {/* AIによる要約 */}
-      <Card className="p-6 mb-8 bg-gradient-to-br from-ink to-soul-dark text-white">
+      <Card className="p-6 mb-8 bg-gradient-to-br from-ink to-jet text-white">
         <div className="flex items-start gap-3">
           <span className="text-3xl">🤖</span>
           <div>
@@ -97,8 +97,8 @@ export default function AiPage() {
             onClick={() => setFilter(t.key)}
             className={`rounded-full px-4 py-2 text-sm font-bold transition ${
               filter === t.key
-                ? "bg-soul text-white"
-                : "bg-white border border-sand text-ink/70 hover:bg-sand"
+                ? "bg-ink text-white"
+                : "bg-white border border-mist text-ink/70 hover:bg-mist"
             }`}
           >
             {t.label}（{t.count}）
@@ -137,9 +137,9 @@ export default function AiPage() {
                 </div>
                 {/* 重要度メーター */}
                 <div className="hidden sm:block w-24 shrink-0">
-                  <div className="h-2 w-full rounded-full bg-sand overflow-hidden">
+                  <div className="h-2 w-full rounded-full bg-mist overflow-hidden">
                     <div
-                      className="h-full rounded-full bg-soul"
+                      className="h-full rounded-full bg-accent"
                       style={{ width: `${Math.min(100, s.severity)}%` }}
                     />
                   </div>

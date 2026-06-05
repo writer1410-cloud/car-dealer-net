@@ -36,7 +36,7 @@ export default function StaffPage() {
             {moves.slice(0, 8).map((m, i) => (
               <div
                 key={`${m.storeId}-${m.date}-${i}`}
-                className="flex items-start gap-3 rounded-xl bg-cream p-4"
+                className="flex items-start gap-3 rounded-xl bg-platinum p-4"
               >
                 <span className="text-2xl">🤝</span>
                 <div className="flex-1">
@@ -81,10 +81,10 @@ export default function StaffPage() {
                 {home.map((s) => (
                   <span
                     key={s.id}
-                    className="inline-flex items-center gap-1 rounded-lg bg-soul/10 text-soul px-2 py-1 text-xs font-medium"
+                    className="inline-flex items-center gap-1 rounded-lg bg-accent/10 text-accent px-2 py-1 text-xs font-medium"
                   >
                     {s.name}
-                    <span className="text-soul/60">{s.grade}</span>
+                    <span className="text-accent/70">{s.grade}</span>
                   </span>
                 ))}
               </div>
@@ -97,7 +97,7 @@ export default function StaffPage() {
                     {helpers.map((s) => (
                       <span
                         key={s.id}
-                        className="inline-flex items-center gap-1 rounded-lg bg-sand px-2 py-1 text-xs text-ink/70"
+                        className="inline-flex items-center gap-1 rounded-lg bg-mist px-2 py-1 text-xs text-ink/70"
                       >
                         {s.name}
                         <span className="text-ink/40">
@@ -118,7 +118,7 @@ export default function StaffPage() {
       <Card className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-sand text-ink/60 text-xs">
+            <thead className="bg-mist text-ink/60 text-xs">
               <tr>
                 <th className="text-left px-4 py-3">氏名</th>
                 <th className="text-left px-4 py-3">資格</th>
@@ -131,7 +131,7 @@ export default function StaffPage() {
               {STAFF.map((s, i) => (
                 <tr
                   key={s.id}
-                  className={i % 2 ? "bg-cream" : "bg-white"}
+                  className={i % 2 ? "bg-platinum" : "bg-white"}
                 >
                   <td className="px-4 py-3 font-bold">{s.name}</td>
                   <td className="px-4 py-3 text-ink/70">{s.grade}</td>
@@ -150,7 +150,7 @@ export default function StaffPage() {
                       {s.skills.map((sk) => (
                         <span
                           key={sk}
-                          className="rounded bg-sand px-1.5 py-0.5 text-[11px] text-ink/60"
+                          className="rounded bg-mist px-1.5 py-0.5 text-[11px] text-ink/60"
                         >
                           {sk}
                         </span>

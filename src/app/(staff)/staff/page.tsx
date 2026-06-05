@@ -9,6 +9,7 @@ import {
 } from "@/lib/schedule";
 import { allSuggestions, networkSummary } from "@/lib/optimizer";
 import { Badge, Card, SectionTitle, utilColor, utilLabel } from "@/components/ui";
+import { Period } from "@/lib/types";
 
 export const metadata = {
   title: "入庫スケジュール ダッシュボード | 神戸マツダ",
@@ -24,7 +25,7 @@ export default function AdminDashboard() {
       <SectionTitle
         eyebrow="本部・店舗管理"
         title="入庫スケジュール ダッシュボード"
-        desc="全店舗の入庫状況・スタッフ数を一目で。色が濃い（赤）ほど混雑、緑は空きです。"
+        desc="全店舗の入庫状況・スタッフ数を一目で。マスの数字は稼働率（%）。緑＝空き、赤＝混雑です。"
       />
 
       {/* サマリー */}
@@ -35,7 +36,7 @@ export default function AdminDashboard() {
         </Card>
         <Card className="p-5">
           <p className="text-sm text-ink/60">午前 平均稼働</p>
-          <p className="text-3xl font-black text-soul">
+          <p className="text-3xl font-black text-accent">
             {(sum.amUtil * 100).toFixed(0)}%
           </p>
         </Card>
@@ -52,90 +53,43 @@ export default function AdminDashboard() {
           </p>
           <Link
             href="/staff/ai"
-            className="text-xs text-soul font-bold hover:underline"
+            className="text-xs text-accent font-bold hover:underline"
           >
             提案を見る →
           </Link>
         </Card>
       </div>
 
-      {/* ヒートマップ */}
-      <Card className="p-5 mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-black">店舗 × 日付 稼働ヒートマップ</h3>
+      {/* ヒートマップ（午前／午後を分けて表示） */}
+      <Card className="p-5 md:p-6 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+          <div>
+            <h3 className="font-black text-lg">店舗 × 日付 稼働ヒートマップ</h3>
+            <p className="text-xs text-ink/55 mt-0.5">
+              数字は<b>稼働率（%）</b>。
+              <span className="text-accent font-bold">午前は赤（混雑）</span>、
+              <span className="text-emerald-600 font-bold">午後は緑（空き）</span>
+              が多く、予約の午前偏重がはっきり分かります。
+            </p>
+          </div>
           <Legend />
         </div>
-        <div className="overflow-x-auto">
-          <table className="border-separate border-spacing-1">
-            <thead>
-              <tr>
-                <th className="sticky left-0 bg-white z-10 text-left text-xs text-ink/50 font-medium px-2 w-28">
-                  店舗 ＼ 日
-                </th>
-                {days.map((d) => (
-                  <th
-                    key={d}
-                    className={`text-[11px] font-medium px-1 ${
-                      isWeekend(d) ? "text-soul" : "text-ink/50"
-                    }`}
-                  >
-                    {formatDate(d).replace(/\(.\)/, "")}
-                    <div className="text-[10px]">
-                      {formatDate(d).match(/\((.)\)/)?.[1]}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {STORES.map((store) => (
-                <tr key={store.id}>
-                  <td className="sticky left-0 bg-white z-10 text-sm font-bold pr-2 w-28">
-                    <Link
-                      href={`/stores/${store.id}`}
-                      className="hover:text-soul"
-                    >
-                      {store.name}
-                    </Link>
-                  </td>
-                  {days.map((d) => {
-                    const load = dayLoadFor(store.id, d);
-                    const u = utilization(load);
-                    return (
-                      <td key={d}>
-                        <div
-                          className="heat-cell grid grid-rows-2 w-9 h-9 rounded overflow-hidden cursor-default"
-                          title={`${store.name} ${formatDate(d)}
-午前 ${load.amBooked}/${load.amCapacity}台 (${(u.am * 100).toFixed(0)}%)
-午後 ${load.pmBooked}/${load.pmCapacity}台 (${(u.pm * 100).toFixed(0)}%)
-出勤スタッフ ${load.staffCount}名`}
-                        >
-                          <div
-                            style={{ background: utilColor(u.am) }}
-                            className="w-full"
-                          />
-                          <div
-                            style={{ background: utilColor(u.pm) }}
-                            className="w-full"
-                          />
-                        </div>
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-3 text-xs text-ink/50">
-          各セルは上段=午前 / 下段=午後の稼働率。多くの店舗で「上が赤・下が緑」=
-          午前偏重が見て取れます。セルにカーソルを合わせると詳細が表示されます。
+
+        <HeatGrid period="AM" label="午前" days={days} />
+        <div className="h-5" />
+        <HeatGrid period="PM" label="午後" days={days} />
+
+        <p className="mt-4 text-xs text-ink/50">
+          マスにカーソルを合わせると、予約台数・出勤スタッフ数の詳細が表示されます。
+          店舗名をクリックすると店舗ページへ移動します。
         </p>
       </Card>
 
       {/* 店舗別 本日の状況 */}
       <Card className="p-5">
-        <h3 className="font-black mb-4">本日（{formatDate(DATES[0])}）の店舗別状況</h3>
+        <h3 className="font-black mb-4">
+          本日（{formatDate(DATES[0])}）の店舗別状況
+        </h3>
         <div className="space-y-3">
           {STORES.map((store) => {
             const load = dayLoadFor(store.id, DATES[0]);
@@ -191,10 +145,115 @@ export default function AdminDashboard() {
   );
 }
 
+/** 午前または午後の稼働率ヒートマップ（数字つき） */
+function HeatGrid({
+  period,
+  label,
+  days,
+}: {
+  period: Period;
+  label: string;
+  days: string[];
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-2">
+        <span
+          className={`inline-flex items-center justify-center text-xs font-black px-2 py-0.5 rounded ${
+            period === "AM"
+              ? "bg-accent/10 text-accent"
+              : "bg-emerald-100 text-emerald-700"
+          }`}
+        >
+          {label}（{period}）
+        </span>
+        <span className="text-[11px] text-ink/45">
+          {period === "AM"
+            ? "9:00〜12:00 の稼働率"
+            : "13:00〜17:00 の稼働率"}
+        </span>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="border-separate border-spacing-1">
+          <thead>
+            <tr>
+              <th className="sticky left-0 bg-white z-10 text-left text-[11px] text-ink/45 font-medium px-2 w-24" />
+              {days.map((d) => {
+                const wd = formatDate(d).match(/\((.)\)/)?.[1] ?? "";
+                const md = formatDate(d).replace(/\(.\)/, "");
+                return (
+                  <th key={d} className="px-0.5 min-w-[2.75rem]">
+                    <div
+                      className={`text-[11px] font-bold ${
+                        isWeekend(d) ? "text-accent" : "text-ink/60"
+                      }`}
+                    >
+                      {md}
+                    </div>
+                    <div
+                      className={`text-[10px] ${
+                        isWeekend(d) ? "text-accent/70" : "text-ink/40"
+                      }`}
+                    >
+                      {wd}
+                    </div>
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody>
+            {STORES.map((store) => (
+              <tr key={store.id}>
+                <td className="sticky left-0 bg-white z-10 text-xs font-bold pr-2 w-24">
+                  <Link
+                    href={`/stores/${store.id}`}
+                    className="hover:text-accent whitespace-nowrap"
+                  >
+                    {store.name}
+                  </Link>
+                </td>
+                {days.map((d) => {
+                  const load = dayLoadFor(store.id, d);
+                  const u = utilization(load);
+                  const util = period === "AM" ? u.am : u.pm;
+                  const booked =
+                    period === "AM" ? load.amBooked : load.pmBooked;
+                  const cap =
+                    period === "AM" ? load.amCapacity : load.pmCapacity;
+                  const pct = Math.round(util * 100);
+                  return (
+                    <td key={d}>
+                      <div
+                        className="grid place-items-center w-11 h-10 rounded-md text-white shadow-sm transition hover:ring-2 hover:ring-ink/30 cursor-default"
+                        style={{ background: utilColor(util) }}
+                        title={`${store.name} ${formatDate(d)} ${label}
+予約 ${booked}/${cap}台（稼働率 ${pct}%）
+空き ${Math.max(0, cap - booked)}台 ・ 出勤スタッフ ${load.staffCount}名`}
+                      >
+                        <span className="leading-none font-black text-[15px]">
+                          {pct}
+                          <span className="text-[9px] font-bold align-top">
+                            %
+                          </span>
+                        </span>
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 function Bar({ value }: { value: number }) {
   const pct = Math.round(Math.min(1, value) * 100);
   return (
-    <div className="h-2.5 w-full rounded-full bg-sand overflow-hidden">
+    <div className="h-2.5 w-full rounded-full bg-mist overflow-hidden">
       <div
         className="h-full rounded-full"
         style={{ width: `${pct}%`, background: utilColor(value) }}
@@ -205,17 +264,17 @@ function Bar({ value }: { value: number }) {
 
 function Legend() {
   const items = [
-    { c: "#2e9e5b", l: "空き" },
-    { c: "#caa600", l: "ふつう" },
-    { c: "#e07b00", l: "やや混雑" },
-    { c: "#9b1b1f", l: "混雑" },
+    { c: "#2f9e5b", l: "空き〜40%" },
+    { c: "#b08900", l: "〜65%" },
+    { c: "#d06a00", l: "〜85%" },
+    { c: "#b3141f", l: "混雑85%+" },
   ];
   return (
-    <div className="flex items-center gap-2 text-xs text-ink/60">
+    <div className="flex items-center gap-3 text-[11px] text-ink/60">
       {items.map((i) => (
         <span key={i.l} className="flex items-center gap-1">
           <span
-            className="inline-block w-3 h-3 rounded"
+            className="inline-block w-3.5 h-3.5 rounded"
             style={{ background: i.c }}
           />
           {i.l}

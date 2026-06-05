@@ -9,16 +9,16 @@ export default function Home() {
   return (
     <div>
       {/* ヒーロー */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-soul-dark via-soul to-soul-light text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-jet via-ink to-graphite text-white">
         <div className="absolute inset-0 opacity-10 [background-image:radial-gradient(circle_at_20%_20%,white_2px,transparent_2px)] [background-size:28px_28px]" />
         <div className="relative mx-auto max-w-6xl px-4 py-20 md:py-28">
           <Badge tone="neutral">
-            <span className="text-soul">兵庫県 × 神戸マツダ ネットワーク</span>
+            <span className="text-ink">兵庫県 × 神戸マツダ ネットワーク</span>
           </Badge>
           <h1 className="mt-4 text-3xl md:text-5xl font-black leading-tight">
             点検は「めんどう」から
             <br />
-            <span className="text-amber-200">「おでかけのついで」へ。</span>
+            <span className="text-accent">「おでかけのついで」へ。</span>
           </h1>
           <p className="mt-5 max-w-2xl text-white/85 text-lg leading-relaxed">
             姫路の方が神戸へ。神戸の方が姫路へ。お出かけ先の神戸マツダで
@@ -28,7 +28,7 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               href="/availability"
-              className="rounded-xl bg-white text-soul font-bold px-6 py-3 shadow-lg hover:bg-amber-50 transition"
+              className="rounded-xl bg-accent text-white font-bold px-6 py-3 shadow-lg hover:bg-accent-dark transition"
             >
               空き店舗をさがす →
             </Link>
@@ -53,7 +53,7 @@ export default function Home() {
         <div className="grid gap-4 md:grid-cols-3">
           <Card className="p-6">
             <p className="text-sm text-ink/60">直近2週間・午前の稼働率</p>
-            <p className="mt-1 text-4xl font-black text-soul">
+            <p className="mt-1 text-4xl font-black text-accent">
               {(sum.amUtil * 100).toFixed(0)}%
             </p>
             <p className="mt-2 text-sm text-ink/60">
@@ -82,7 +82,7 @@ export default function Home() {
       </section>
 
       {/* 3つの仕組み */}
-      <section className="bg-white border-y border-sand">
+      <section className="bg-white border-y border-mist">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <SectionTitle
             eyebrow="HOW IT WORKS"
@@ -120,7 +120,7 @@ export default function Home() {
                 </p>
                 <Link
                   href={f.href}
-                  className="mt-4 text-soul font-bold text-sm hover:underline"
+                  className="mt-4 text-ink font-bold text-sm hover:underline"
                 >
                   {f.cta} →
                 </Link>
@@ -140,10 +140,10 @@ export default function Home() {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {STORES.map((s) => (
             <Link key={s.id} href={`/stores/${s.id}`}>
-              <Card className="p-5 hover:shadow-md hover:border-soul/30 transition h-full">
+              <Card className="p-5 hover:shadow-md hover:border-ink/30 transition h-full">
                 <div className="flex items-center justify-between">
                   <h3 className="font-black text-lg">{s.name}</h3>
-                  <Badge tone="soul">{s.area}</Badge>
+                  <Badge tone="ink">{s.area}</Badge>
                 </div>
                 <p className="mt-1 text-sm text-ink/60">{s.city}</p>
                 <p className="mt-3 text-sm text-ink/70 leading-relaxed">

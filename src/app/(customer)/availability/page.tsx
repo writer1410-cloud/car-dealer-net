@@ -36,7 +36,7 @@ export default function AvailabilityPage() {
             <select
               value={area}
               onChange={(e) => setArea(e.target.value as Area)}
-              className="mt-1 w-full rounded-xl border border-sand bg-cream px-3 py-2.5 font-medium focus:border-soul focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-mist bg-platinum px-3 py-2.5 font-medium focus:border-ink focus:outline-none"
             >
               {AREA_LIST.map((a) => (
                 <option key={a} value={a}>
@@ -50,7 +50,7 @@ export default function AvailabilityPage() {
             <select
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-sand bg-cream px-3 py-2.5 font-medium focus:border-soul focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-mist bg-platinum px-3 py-2.5 font-medium focus:border-ink focus:outline-none"
             >
               {DATES.map((d) => (
                 <option key={d} value={d}>
@@ -64,7 +64,7 @@ export default function AvailabilityPage() {
             <select
               value={service}
               onChange={(e) => setService(e.target.value as ServiceType)}
-              className="mt-1 w-full rounded-xl border border-sand bg-cream px-3 py-2.5 font-medium focus:border-soul focus:outline-none"
+              className="mt-1 w-full rounded-xl border border-mist bg-platinum px-3 py-2.5 font-medium focus:border-ink focus:outline-none"
             >
               {SERVICE_LIST.map((s) => (
                 <option key={s.type} value={s.type}>
@@ -93,15 +93,15 @@ export default function AvailabilityPage() {
             <Card
               key={r.store.id}
               className={`p-5 md:p-6 ${
-                isTop ? "ring-2 ring-soul border-soul/40" : ""
+                isTop ? "ring-2 ring-accent border-accent/40" : ""
               }`}
             >
               <div className="flex flex-col md:flex-row md:items-start gap-5">
                 {/* スコア */}
                 <div className="flex md:flex-col items-center md:items-center gap-3 md:w-28 shrink-0">
-                  {isTop && <Badge tone="soul">🤖 AIのイチオシ</Badge>}
+                  {isTop && <Badge tone="accent">🤖 AIのイチオシ</Badge>}
                   <div className="text-center">
-                    <div className="text-4xl font-black text-soul leading-none">
+                    <div className="text-4xl font-black text-accent leading-none">
                       {r.score}
                     </div>
                     <div className="text-[11px] text-ink/50">おすすめ度</div>
@@ -147,7 +147,7 @@ export default function AvailabilityPage() {
                     {r.store.spots.slice(0, 3).map((sp) => (
                       <span
                         key={sp.name}
-                        className="inline-flex items-center gap-1 rounded-full bg-sand px-2.5 py-1 text-xs text-ink/70"
+                        className="inline-flex items-center gap-1 rounded-full bg-mist px-2.5 py-1 text-xs text-ink/70"
                       >
                         {sp.emoji} {sp.name}
                       </span>
@@ -158,7 +158,7 @@ export default function AvailabilityPage() {
                 {/* アクション */}
                 <div className="flex md:flex-col gap-2 md:w-40 shrink-0">
                   <button
-                    className="flex-1 rounded-xl bg-soul text-white font-bold px-4 py-2.5 hover:bg-soul-dark transition"
+                    className="flex-1 rounded-xl bg-accent text-white font-bold px-4 py-2.5 hover:bg-accent-dark transition"
                     onClick={() =>
                       alert(
                         `${r.store.name} ${formatDate(date)} の予約画面へ進みます（デモ）`,
@@ -169,7 +169,7 @@ export default function AvailabilityPage() {
                   </button>
                   <Link
                     href={`/stores/${r.store.id}`}
-                    className="flex-1 text-center rounded-xl border border-sand font-bold px-4 py-2.5 hover:bg-sand transition"
+                    className="flex-1 text-center rounded-xl border border-mist font-bold px-4 py-2.5 hover:bg-mist transition"
                   >
                     おでかけ情報
                   </Link>

@@ -19,11 +19,11 @@ export default function StoresPage() {
       <div className="grid gap-6 md:grid-cols-2">
         {STORES.map((s) => (
           <Card key={s.id} className="overflow-hidden flex flex-col">
-            <div className="bg-gradient-to-br from-soul to-soul-light text-white p-5">
+            <div className="bg-gradient-to-br from-ink to-graphite text-white p-5">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-black">{s.name}</h3>
                 <Badge tone="neutral">
-                  <span className="text-soul">{s.area}</span>
+                  <span className="text-ink">{s.area}</span>
                 </Badge>
               </div>
               <p className="text-sm text-white/80 mt-1">{s.city}</p>
@@ -37,7 +37,7 @@ export default function StoresPage() {
                 {s.spots.map((sp) => (
                   <span
                     key={sp.name}
-                    className="inline-flex items-center gap-1 rounded-full bg-sand px-2.5 py-1 text-xs text-ink/70"
+                    className="inline-flex items-center gap-1 rounded-full bg-mist px-2.5 py-1 text-xs text-ink/70"
                   >
                     {sp.emoji} {sp.name}
                   </span>
@@ -47,13 +47,13 @@ export default function StoresPage() {
             <div className="p-5 pt-0 flex gap-2">
               <Link
                 href={`/stores/${s.id}`}
-                className="flex-1 text-center rounded-xl bg-soul text-white font-bold px-4 py-2.5 hover:bg-soul-dark transition"
+                className="flex-1 text-center rounded-xl bg-ink text-white font-bold px-4 py-2.5 hover:bg-jet transition"
               >
                 くわしく見る
               </Link>
               <Link
                 href="/availability"
-                className="flex-1 text-center rounded-xl border border-sand font-bold px-4 py-2.5 hover:bg-sand transition"
+                className="flex-1 text-center rounded-xl border border-mist font-bold px-4 py-2.5 hover:bg-mist transition"
               >
                 空きをさがす
               </Link>

@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-10 grid gap-8 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="grid place-items-center w-8 h-8 rounded-full bg-soul text-white font-black">
+            <span className="grid place-items-center w-8 h-8 rounded-full bg-gradient-to-br from-white to-silver text-ink font-black">
               M
             </span>
             <span className="font-black text-white">神戸マツダ</span>

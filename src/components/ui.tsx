@@ -1,11 +1,12 @@
 import { ReactNode } from "react";
 
-/** 稼働率(0-1)から色を決める。低=空き(緑), 中=黄, 高=混雑(赤) */
+/** 稼働率(0-1)から色を決める。低=空き(緑), 中=黄, 高=混雑(赤)。
+ *  いずれも白文字が読める濃さに調整。 */
 export function utilColor(util: number): string {
-  if (util >= 0.85) return "#9b1b1f"; // 混雑
-  if (util >= 0.65) return "#e07b00"; // やや混雑
-  if (util >= 0.4) return "#caa600"; // ふつう
-  return "#2e9e5b"; // 空き
+  if (util >= 0.85) return "#b3141f"; // 混雑（ソウルレッド系）
+  if (util >= 0.65) return "#d06a00"; // やや混雑
+  if (util >= 0.4) return "#b08900"; // ふつう
+  return "#2f9e5b"; // 空き
 }
 
 export function utilLabel(util: number): string {
@@ -18,7 +19,7 @@ export function utilLabel(util: number): string {
 export function UtilBar({ value }: { value: number }) {
   const pct = Math.round(Math.min(1, value) * 100);
   return (
-    <div className="h-2 w-full rounded-full bg-sand overflow-hidden">
+    <div className="h-2 w-full rounded-full bg-mist overflow-hidden">
       <div
         className="h-full rounded-full"
         style={{ width: `${pct}%`, background: utilColor(value) }}
@@ -32,14 +33,15 @@ export function Badge({
   tone = "neutral",
 }: {
   children: ReactNode;
-  tone?: "neutral" | "good" | "warn" | "bad" | "soul";
+  tone?: "neutral" | "good" | "warn" | "bad" | "ink" | "accent";
 }) {
   const tones: Record<string, string> = {
-    neutral: "bg-sand text-ink/70",
+    neutral: "bg-mist text-ink/70",
     good: "bg-emerald-100 text-emerald-800",
     warn: "bg-amber-100 text-amber-800",
     bad: "bg-red-100 text-red-800",
-    soul: "bg-soul/10 text-soul",
+    ink: "bg-ink/10 text-ink",
+    accent: "bg-accent/10 text-accent",
   };
   return (
     <span
@@ -59,7 +61,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`rounded-2xl bg-white border border-sand shadow-sm ${className}`}
+      className={`rounded-2xl bg-white border border-mist shadow-sm ${className}`}
     >
       {children}
     </div>
@@ -78,7 +80,7 @@ export function SectionTitle({
   return (
     <div className="mb-6">
       {eyebrow && (
-        <p className="text-soul font-bold text-sm tracking-wide mb-1">
+        <p className="text-accent font-bold text-sm tracking-wide mb-1">
           {eyebrow}
         </p>
       )}

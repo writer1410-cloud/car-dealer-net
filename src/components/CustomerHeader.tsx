@@ -17,14 +17,14 @@ export function CustomerHeader() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-sand">
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-mist">
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <span className="grid place-items-center w-9 h-9 rounded-full bg-soul text-white font-black">
+          <span className="grid place-items-center w-9 h-9 rounded-full bg-gradient-to-br from-graphite to-ink text-white font-black ring-1 ring-silver/50">
             M
           </span>
           <span className="leading-tight">
-            <span className="block text-sm font-black text-soul">
+            <span className="block text-sm font-black text-ink">
               神戸マツダ
             </span>
             <span className="block text-[11px] text-ink/60 -mt-0.5">
@@ -40,8 +40,8 @@ export function CustomerHeader() {
               href={n.href}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition ${
                 isActive(n.href)
-                  ? "text-soul bg-soul/10"
-                  : "text-ink/70 hover:text-soul hover:bg-soul/5"
+                  ? "text-ink bg-ink/10"
+                  : "text-ink/70 hover:text-ink hover:bg-ink/5"
               }`}
             >
               {n.label}
@@ -49,11 +49,11 @@ export function CustomerHeader() {
           ))}
           <Link
             href="/availability"
-            className="ml-2 rounded-lg bg-soul text-white text-sm font-bold px-4 py-2 hover:bg-soul-dark transition"
+            className="ml-2 rounded-lg bg-accent text-white text-sm font-bold px-4 py-2 hover:bg-accent-dark transition"
           >
             予約する
           </Link>
-          <span className="mx-2 h-5 w-px bg-sand" />
+          <span className="mx-2 h-5 w-px bg-mist" />
           <Link
             href="/staff"
             className="text-xs text-ink/40 hover:text-ink/70"
@@ -64,7 +64,7 @@ export function CustomerHeader() {
 
         <button
           aria-label="メニュー"
-          className="md:hidden p-2 rounded-lg hover:bg-sand"
+          className="md:hidden p-2 rounded-lg hover:bg-mist"
           onClick={() => setOpen((v) => !v)}
         >
           <div className="w-5 space-y-1">
@@ -76,14 +76,14 @@ export function CustomerHeader() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-sand bg-white px-4 py-3 space-y-1">
+        <div className="md:hidden border-t border-mist bg-white px-4 py-3 space-y-1">
           {customerNav.map((n) => (
             <Link
               key={n.href}
               href={n.href}
               onClick={() => setOpen(false)}
               className={`block px-3 py-2 rounded-lg text-sm font-medium ${
-                isActive(n.href) ? "text-soul bg-soul/10" : "text-ink/70"
+                isActive(n.href) ? "text-ink bg-ink/10" : "text-ink/70"
               }`}
             >
               {n.label}

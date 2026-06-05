@@ -1,20 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* マツダ・ソウルレッドを基調にしたブランドカラー */
-  --color-soul: #9b1b1f;
-  --color-soul-dark: #6e0f12;
-  --color-soul-light: #c8302f;
-  --color-ink: #1a1a1d;
-  --color-cream: #faf7f4;
-  --color-sand: #f0eae3;
+  /* マツダらしいブラック＆シルバー基調 + 差し色のソウルレッド */
+  --color-ink: #16181c; /* 主役のニアブラック */
+  --color-jet: #0a0b0d; /* 最も濃いブラック（グラデ用） */
+  --color-graphite: #2b2f36; /* ダークグレー */
+  --color-steel: #5b626b; /* ミッドグレー */
+  --color-silver: #aab0b8; /* シルバー */
+  --color-mist: #e8eaee; /* 明るいシルバー面・境界線 */
+  --color-platinum: #f6f7f9; /* 明るいページ背景 */
+  --color-accent: #e11d2a; /* 差し色（ソウルレッド系） */
+  --color-accent-dark: #b3141f;
 
   --font-sans: var(--font-noto-sans-jp), system-ui, sans-serif;
 }
 
 :root {
-  --background: #faf7f4;
-  --foreground: #1a1a1d;
+  --background: #f6f7f9;
+  --foreground: #16181c;
 }
 
 html {
@@ -26,14 +29,4 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-}
-
-/* 稼働率ヒートマップ用ユーティリティ */
-.heat-cell {
-  transition: transform 0.1s ease;
-}
-.heat-cell:hover {
-  transform: scale(1.12);
-  z-index: 10;
-  position: relative;
 }

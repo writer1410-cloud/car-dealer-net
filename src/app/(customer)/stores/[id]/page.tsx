@@ -41,7 +41,7 @@ export default async function StoreDetail({
   return (
     <div>
       {/* ヒーロー */}
-      <section className="relative bg-gradient-to-br from-soul-dark via-soul to-soul-light text-white">
+      <section className="relative bg-gradient-to-br from-jet via-ink to-graphite text-white">
         <div className="absolute inset-0 opacity-10 [background-image:radial-gradient(circle_at_80%_20%,white_2px,transparent_2px)] [background-size:26px_26px]" />
         <div className="relative mx-auto max-w-6xl px-4 py-14">
           <Link
@@ -53,7 +53,7 @@ export default async function StoreDetail({
           <div className="mt-3 flex flex-wrap items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-black">{store.name}</h1>
             <Badge tone="neutral">
-              <span className="text-soul">{store.area}エリア</span>
+              <span className="text-ink">{store.area}エリア</span>
             </Badge>
           </div>
           <p className="mt-3 max-w-2xl text-white/90 text-lg">{store.catch}</p>
@@ -89,7 +89,7 @@ export default async function StoreDetail({
                     <p className="mt-1 text-sm text-ink/65 leading-relaxed">
                       {sp.description}
                     </p>
-                    <p className="mt-2 text-xs text-soul font-bold">
+                    <p className="mt-2 text-xs text-ink font-bold">
                       🚗 {sp.access}
                     </p>
                   </Card>
@@ -123,7 +123,7 @@ export default async function StoreDetail({
             </ul>
             <Link
               href="/availability"
-              className="mt-4 block text-center rounded-xl bg-soul text-white font-bold px-4 py-2.5 hover:bg-soul-dark transition"
+              className="mt-4 block text-center rounded-xl bg-accent text-white font-bold px-4 py-2.5 hover:bg-accent-dark transition"
             >
               この店舗で予約する
             </Link>
@@ -136,7 +136,7 @@ export default async function StoreDetail({
             <h3 className="font-black mb-3">スタッフ体制</h3>
             <p className="text-sm text-ink/70">
               所属スタッフ{" "}
-              <span className="font-black text-soul">{home.length}名</span>
+              <span className="font-black text-ink">{home.length}名</span>
             </p>
             <ul className="mt-2 space-y-1 text-sm text-ink/70">
               {home.map((s) => (
