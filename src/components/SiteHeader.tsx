@@ -1,0 +1,104 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+
+const userNav = [
+  { href: "/", label: "ホーム" },
+  { href: "/availability", label: "空き店舗をさがす" },
+  { href: "/stores", label: "店舗・おでかけ" },
+];
+
+const adminNav = [
+  { href: "/admin", label: "ダッシュボード" },
+  { href: "/admin/staff", label: "スタッフ配置" },
+  { href: "/admin/ai", label: "AI最適化" },
+];
+
+export function SiteHeader() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  return (
+    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-sand">
+      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between gap-4">
+        <Link href="/" className="flex items-center gap-2 shrink-0">
+          <span className="grid place-items-center w-9 h-9 rounded-full bg-soul text-white font-black">
+            M
+          </span>
+          <span className="leading-tight">
+            <span className="block text-sm font-black text-soul">
+              神戸マツダ
+            </span>
+            <span className="block text-[11px] text-ink/60 -mt-0.5">
+              ぐるっと点検ネット
+            </span>
+          </span>
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-1">
+          {userNav.map((n) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition ${
+                isActive(n.href)
+                  ? "text-soul bg-soul/10"
+                  : "text-ink/70 hover:text-soul hover:bg-soul/5"
+              }`}
+            >
+              {n.label}
+            </Link>
+          ))}
+          <span className="mx-2 h-5 w-px bg-sand" />
+          <span className="text-[11px] text-ink/40 mr-1">管理</span>
+          {adminNav.map((n) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition ${
+                isActive(n.href)
+                  ? "text-white bg-ink"
+                  : "text-ink/60 hover:text-ink hover:bg-sand"
+              }`}
+            >
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+
+        <button
+          aria-label="メニュー"
+          className="md:hidden p-2 rounded-lg hover:bg-sand"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <div className="w-5 space-y-1">
+            <span className="block h-0.5 bg-ink" />
+            <span className="block h-0.5 bg-ink" />
+            <span className="block h-0.5 bg-ink" />
+          </div>
+        </button>
+      </div>
+
+      {open && (
+        <div className="md:hidden border-t border-sand bg-white px-4 py-3 space-y-1">
+          {[...userNav, ...adminNav].map((n) => (
+            <Link
+              key={n.href}
+              href={n.href}
+              onClick={() => setOpen(false)}
+              className={`block px-3 py-2 rounded-lg text-sm font-medium ${
+                isActive(n.href) ? "text-soul bg-soul/10" : "text-ink/70"
+              }`}
+            >
+              {n.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </header>
+  );
+}

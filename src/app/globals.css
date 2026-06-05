@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  /* マツダ・ソウルレッドを基調にしたブランドカラー */
+  --color-soul: #9b1b1f;
+  --color-soul-dark: #6e0f12;
+  --color-soul-light: #c8302f;
+  --color-ink: #1a1a1d;
+  --color-cream: #faf7f4;
+  --color-sand: #f0eae3;
+
+  --font-sans: var(--font-noto-sans-jp), system-ui, sans-serif;
+}
+
+:root {
+  --background: #faf7f4;
+  --foreground: #1a1a1d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 稼働率ヒートマップ用ユーティリティ */
+.heat-cell {
+  transition: transform 0.1s ease;
+}
+.heat-cell:hover {
+  transform: scale(1.12);
+  z-index: 10;
+  position: relative;
+}
