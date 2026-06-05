@@ -4,19 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const userNav = [
+const customerNav = [
   { href: "/", label: "ホーム" },
   { href: "/availability", label: "空き店舗をさがす" },
   { href: "/stores", label: "店舗・おでかけ" },
 ];
 
-const adminNav = [
-  { href: "/admin", label: "ダッシュボード" },
-  { href: "/admin/staff", label: "スタッフ配置" },
-  { href: "/admin/ai", label: "AI最適化" },
-];
-
-export function SiteHeader() {
+export function CustomerHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const isActive = (href: string) =>
@@ -40,7 +34,7 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
-          {userNav.map((n) => (
+          {customerNav.map((n) => (
             <Link
               key={n.href}
               href={n.href}
@@ -53,21 +47,19 @@ export function SiteHeader() {
               {n.label}
             </Link>
           ))}
+          <Link
+            href="/availability"
+            className="ml-2 rounded-lg bg-soul text-white text-sm font-bold px-4 py-2 hover:bg-soul-dark transition"
+          >
+            予約する
+          </Link>
           <span className="mx-2 h-5 w-px bg-sand" />
-          <span className="text-[11px] text-ink/40 mr-1">管理</span>
-          {adminNav.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition ${
-                isActive(n.href)
-                  ? "text-white bg-ink"
-                  : "text-ink/60 hover:text-ink hover:bg-sand"
-              }`}
-            >
-              {n.label}
-            </Link>
-          ))}
+          <Link
+            href="/staff"
+            className="text-xs text-ink/40 hover:text-ink/70"
+          >
+            スタッフの方 →
+          </Link>
         </nav>
 
         <button
@@ -85,7 +77,7 @@ export function SiteHeader() {
 
       {open && (
         <div className="md:hidden border-t border-sand bg-white px-4 py-3 space-y-1">
-          {[...userNav, ...adminNav].map((n) => (
+          {customerNav.map((n) => (
             <Link
               key={n.href}
               href={n.href}
@@ -97,6 +89,13 @@ export function SiteHeader() {
               {n.label}
             </Link>
           ))}
+          <Link
+            href="/staff"
+            onClick={() => setOpen(false)}
+            className="block px-3 py-2 rounded-lg text-xs text-ink/40"
+          >
+            スタッフの方はこちら →
+          </Link>
         </div>
       )}
     </header>

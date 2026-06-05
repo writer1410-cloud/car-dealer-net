@@ -101,14 +101,14 @@ export default function Home() {
                 emoji: "📊",
                 title: "全店の入庫を一目で",
                 body: "各店舗のAM/PM稼働率・スタッフ数をヒートマップで把握。混雑と空きが瞬時に分かります。",
-                href: "/admin",
+                href: "/staff",
                 cta: "ダッシュボード",
               },
               {
                 emoji: "🤝",
                 title: "スタッフは店舗をまたいで",
                 body: "神戸店が空いている日は明石店へ応援。AIが需要に合わせてスタッフ配置を提案します。",
-                href: "/admin/staff",
+                href: "/staff/members",
                 cta: "スタッフ配置",
               },
             ].map((f) => (

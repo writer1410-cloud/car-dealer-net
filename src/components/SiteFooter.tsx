@@ -32,24 +32,18 @@ export function SiteFooter() {
           </ul>
         </div>
         <div className="text-sm">
-          <h3 className="font-bold text-white mb-3">店舗・本部向け</h3>
+          <h3 className="font-bold text-white mb-3">スタッフの方へ</h3>
           <ul className="space-y-2 text-white/60">
             <li>
-              <Link href="/admin" className="hover:text-white">
-                入庫スケジュール ダッシュボード
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/staff" className="hover:text-white">
-                スタッフ店舗間配置
-              </Link>
-            </li>
-            <li>
-              <Link href="/admin/ai" className="hover:text-white">
-                AI最適化アシスタント
+              <Link href="/staff" className="hover:text-white">
+                管理ポータルへログイン →
               </Link>
             </li>
           </ul>
+          <p className="mt-3 text-xs text-white/40">
+            入庫スケジュール・スタッフ配置・AI最適化は
+            店舗／本部スタッフ専用の管理ポータルでご利用いただけます。
+          </p>
         </div>
       </div>
       <div className="border-t border-white/10 py-4 text-center text-xs text-white/40">

@@ -51,7 +51,7 @@ export default function AdminDashboard() {
             {suggestions.length}件
           </p>
           <Link
-            href="/admin/ai"
+            href="/staff/ai"
             className="text-xs text-soul font-bold hover:underline"
           >
             提案を見る →
