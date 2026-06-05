@@ -1,16 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  /* マツダらしいブラック＆シルバー基調 + 差し色のソウルレッド */
-  --color-ink: #16181c; /* 主役のニアブラック */
-  --color-jet: #0a0b0d; /* 最も濃いブラック（グラデ用） */
-  --color-graphite: #2b2f36; /* ダークグレー */
-  --color-steel: #5b626b; /* ミッドグレー */
-  --color-silver: #aab0b8; /* シルバー */
-  --color-mist: #e8eaee; /* 明るいシルバー面・境界線 */
-  --color-platinum: #f6f7f9; /* 明るいページ背景 */
-  --color-accent: #e11d2a; /* 差し色（ソウルレッド系） */
+  /* ─── ブランド：ブラック＆シルバー ─── */
+  --color-ink: #16181c;
+  --color-jet: #0a0b0d;
+  --color-graphite: #2b2f36;
+  --color-steel: #5b626b;
+  --color-silver: #aab0b8;
+  --color-mist: #e8eaee;
+  --color-platinum: #f6f7f9;
+  --color-accent: #e11d2a; /* ソウルレッド差し色 */
   --color-accent-dark: #b3141f;
+
+  /* ─── 兵庫の風景カラー ─── */
+  --color-sea: #0284c7;        /* 瀬戸内の海 */
+  --color-sea-light: #e0f2fe;
+  --color-sea-dark: #075985;
+  --color-mountain: #16a34a;   /* 六甲山・播磨の緑 */
+  --color-mountain-light: #dcfce7;
+  --color-mountain-dark: #15803d;
+  --color-harbor: #d97706;     /* 港の夕焼け */
+  --color-harbor-light: #fef3c7;
+  --color-harbor-dark: #b45309;
 
   --font-sans: var(--font-noto-sans-jp), system-ui, sans-serif;
 }
@@ -29,4 +40,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/* 写真カードのグラデーションオーバーレイ */
+.photo-overlay {
+  background: linear-gradient(to top, rgba(10,11,13,0.85) 0%, rgba(10,11,13,0.3) 55%, transparent 100%);
+}
+.photo-overlay-side {
+  background: linear-gradient(to right, rgba(10,11,13,0.92) 0%, rgba(10,11,13,0.6) 50%, transparent 100%);
 }

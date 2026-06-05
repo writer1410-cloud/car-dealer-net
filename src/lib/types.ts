@@ -35,6 +35,8 @@ export interface Spot {
   description: string;
   /** 店舗からの目安（徒歩・車での所要） */
   access: string;
+  /** Unsplash 写真 URL（オプション） */
+  photo?: string;
 }
 
 export interface Store {
@@ -50,6 +52,10 @@ export interface Store {
   tel: string;
   /** 店舗のキャッチコピー */
   catch: string;
+  /** エリアのテーマ */
+  theme: "sea" | "mountain" | "harbor" | "castle";
+  /** Unsplash 写真 URL */
+  photo: string;
   /** 近隣のおでかけスポット */
   spots: Spot[];
 }
