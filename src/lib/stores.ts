@@ -25,6 +25,12 @@ export const STORES: Store[] = [
     catch: "海と異国情緒の街。点検待ちの時間も神戸観光に。",
     theme: "sea",
     photo: U("1545569341-9eb8b30979d9", 1200, 800),
+    ebikes: 8,
+    coupons: [
+      { spot: "南京町（提携店舗）", emoji: "🥟", benefit: "人気店の豚まん1個プレゼント", partner: "提携店舗" },
+      { spot: "神戸ポートタワー", emoji: "🗼", benefit: "展望フロア入場 10%OFF", partner: "自治体" },
+      { spot: "umie モザイク大観覧車", emoji: "🎡", benefit: "ペア搭乗 200円引き", partner: "提携店舗" },
+    ],
     spots: [
       {
         name: "南京町（神戸中華街）",
@@ -73,6 +79,12 @@ export const STORES: Store[] = [
     catch: "野球とお酒とガーデンズ。家族で楽しめる阪神間。",
     theme: "harbor",
     photo: U("1516738901171-8eb4fc13bd20", 1200, 800),
+    ebikes: 6,
+    coupons: [
+      { spot: "阪急西宮ガーデンズ", emoji: "🛍️", benefit: "対象店で使える 500円お買物券", partner: "提携店舗" },
+      { spot: "白鹿記念酒造博物館", emoji: "🍶", benefit: "入館無料＋試飲1杯サービス", partner: "商工会議所" },
+      { spot: "甲子園歴史館", emoji: "⚾", benefit: "入館料 100円引き", partner: "自治体" },
+    ],
     spots: [
       {
         name: "阪神甲子園球場",
@@ -121,6 +133,12 @@ export const STORES: Store[] = [
     catch: "下町グルメと尼崎城。レジャー施設も近い活気の街。",
     theme: "harbor",
     photo: U("1503899036-c27b63e5fd26", 1200, 800),
+    ebikes: 5,
+    coupons: [
+      { spot: "尼崎城", emoji: "🏯", benefit: "天守入場料 半額", partner: "自治体" },
+      { spot: "あまがさきキューズモール", emoji: "🛍️", benefit: "フードコート ドリンク1杯無料", partner: "提携店舗" },
+      { spot: "尼崎スポーツの森", emoji: "🏊", benefit: "プール利用 100円引き", partner: "商工会議所" },
+    ],
     spots: [
       {
         name: "尼崎城",
@@ -161,6 +179,12 @@ export const STORES: Store[] = [
     catch: "明石焼きと海峡大橋。子午線のまちでのんびり。",
     theme: "sea",
     photo: U("1558980394-35d349b8dbce", 1200, 800),
+    ebikes: 6,
+    coupons: [
+      { spot: "魚の棚商店街", emoji: "🐙", benefit: "本場の明石焼き 1皿サービス", partner: "商工会議所" },
+      { spot: "明石市立天文科学館", emoji: "🔭", benefit: "入館料 100円引き", partner: "自治体" },
+      { spot: "明石公園 ボート乗り場", emoji: "🚣", benefit: "ボート 30分延長無料", partner: "提携店舗" },
+    ],
     spots: [
       {
         name: "魚の棚商店街",
@@ -209,6 +233,12 @@ export const STORES: Store[] = [
     catch: "名物かつめしと国宝鶴林寺。落ち着いた播磨の中核。",
     theme: "mountain",
     photo: U("1540220695491-c79def14c7f9", 1200, 800),
+    ebikes: 4,
+    coupons: [
+      { spot: "加古川かつめし提携店", emoji: "🍱", benefit: "ごはん大盛り 無料", partner: "商工会議所" },
+      { spot: "鶴林寺 宝物館", emoji: "🛕", benefit: "拝観料 100円引き", partner: "自治体" },
+      { spot: "日岡山公園 売店", emoji: "🍦", benefit: "ソフトクリーム 50円引き", partner: "提携店舗" },
+    ],
     spots: [
       {
         name: "かつめし（加古川名物）",
@@ -249,6 +279,12 @@ export const STORES: Store[] = [
     catch: "世界遺産・姫路城のおひざ元。観光もグルメも盛りだくさん。",
     theme: "castle",
     photo: U("1580019542155-247062e19ce4", 1200, 800),
+    ebikes: 8,
+    coupons: [
+      { spot: "世界遺産 姫路城", emoji: "🏯", benefit: "入城料 大人100円引き", partner: "自治体" },
+      { spot: "姫路セントラルパーク", emoji: "🦁", benefit: "入園 ペア500円引き", partner: "提携店舗" },
+      { spot: "姫路おでん提携店", emoji: "🍢", benefit: "姫路おでん 1本サービス", partner: "商工会議所" },
+    ],
     spots: [
       {
         name: "世界遺産 姫路城",
@@ -293,6 +329,29 @@ export const STORE_MAP: Record<string, Store> = Object.fromEntries(
 export function getStore(id: string): Store | undefined {
   return STORE_MAP[id];
 }
+
+/** 無料貸し出し電動アシスト自転車のサービス名 */
+export const EBIKE_BRAND = "ぐるっとバイク";
+
+/** ネットワーク全体の電動自転車の総台数 */
+export const TOTAL_EBIKES = STORES.reduce((sum, s) => sum + s.ebikes, 0);
+
+/** ネットワーク全体の提携クーポン総数 */
+export const TOTAL_COUPONS = STORES.reduce((sum, s) => sum + s.coupons.length, 0);
+
+/** 地域活性化で連携する自治体・商工会議所など */
+export const PARTNER_ORGS = [
+  { name: "神戸市", type: "自治体", emoji: "🏛️" },
+  { name: "姫路市", type: "自治体", emoji: "🏯" },
+  { name: "明石市", type: "自治体", emoji: "🐙" },
+  { name: "西宮市", type: "自治体", emoji: "⚾" },
+  { name: "尼崎市", type: "自治体", emoji: "🏰" },
+  { name: "加古川市", type: "自治体", emoji: "🌳" },
+  { name: "神戸商工会議所", type: "商工会議所", emoji: "🤝" },
+  { name: "姫路商工会議所", type: "商工会議所", emoji: "🤝" },
+  { name: "明石商工会議所", type: "商工会議所", emoji: "🤝" },
+  { name: "東播磨観光協会", type: "観光協会", emoji: "🗺️" },
+] as const;
 
 /** テーマ → カラートークン名のマッピング */
 export const THEME_COLORS: Record<

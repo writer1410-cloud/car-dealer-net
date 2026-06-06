@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORES, getStore, THEME_COLORS } from "@/lib/stores";
+import { STORES, getStore, THEME_COLORS, EBIKE_BRAND } from "@/lib/stores";
 import { DATES, formatDate, openSlots } from "@/lib/schedule";
 import { staffOfStore, helpersForStore } from "@/lib/staff";
 import { Badge, Card, CATEGORY_PHOTOS } from "@/components/ui";
@@ -180,6 +180,51 @@ export default async function StoreDetail({
             <p className="mt-2 text-xs text-ink/50 text-center">
               午後(PM)は待ち時間が少なくおすすめです
             </p>
+          </Card>
+
+          {/* 午後予約クーポン */}
+          <Card className="p-5 border-t-4 border-harbor">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-black">🎟️ 午後予約クーポン</h3>
+              <Badge tone="harbor">午後枠限定</Badge>
+            </div>
+            <ul className="space-y-2">
+              {store.coupons.map((c) => (
+                <li
+                  key={c.spot}
+                  className="flex items-start gap-2 text-sm"
+                >
+                  <span className="text-lg leading-none">{c.emoji}</span>
+                  <span>
+                    <span className="font-bold">{c.benefit}</span>
+                    <span className="block text-xs text-ink/50">
+                      {c.spot}・{c.partner}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-xs text-ink/45 border-t border-mist pt-3">
+              午後枠（13:00以降）のご予約完了で発行されます。
+            </p>
+          </Card>
+
+          {/* 電動自転車 */}
+          <Card className="p-5 border-t-4 border-mountain">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-black">🚲 電動自転車 無料貸出</h3>
+              <Badge tone="mountain">{store.ebikes}台</Badge>
+            </div>
+            <p className="text-sm text-ink/70 leading-relaxed">
+              点検・車検のお客様は、おしゃれな電動アシスト自転車「{EBIKE_BRAND}」を
+              無料でご利用いただけます。クルマを預けて、身軽に周辺スポットへ。
+            </p>
+            <Link
+              href="/perks"
+              className="mt-3 inline-block text-sm font-bold text-mountain hover:underline"
+            >
+              特典をくわしく見る →
+            </Link>
           </Card>
 
           <Card className="p-5">

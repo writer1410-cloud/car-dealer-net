@@ -169,6 +169,21 @@ const results = useMemo(
                         </Badge>
                       </div>
 
+                      {/* 午後予約特典 */}
+                      {r.pmOpen >= 3 && (
+                        <div className="mt-3 flex flex-wrap items-center gap-2 rounded-lg bg-gradient-to-r from-harbor-light to-mountain-light px-3 py-2">
+                          <span className="text-xs font-black text-harbor-dark">
+                            🎁 午後予約特典
+                          </span>
+                          <span className="text-xs text-ink/70">
+                            🎟️ {r.store.coupons.length}種のクーポン
+                          </span>
+                          <span className="text-xs text-ink/70">
+                            🚲 電動自転車{r.store.ebikes}台 無料貸出
+                          </span>
+                        </div>
+                      )}
+
                       {r.reasons.length > 0 && (
                         <ul className="mt-3 space-y-1">
                           {r.reasons.map((reason) => (

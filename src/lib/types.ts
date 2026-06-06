@@ -56,8 +56,23 @@ export interface Store {
   theme: "sea" | "mountain" | "harbor" | "castle";
   /** Unsplash 写真 URL */
   photo: string;
+  /** 無料貸し出しできる電動アシスト自転車の台数 */
+  ebikes: number;
+  /** 午後枠予約で使える提携スポットのクーポン */
+  coupons: Coupon[];
   /** 近隣のおでかけスポット */
   spots: Spot[];
+}
+
+/** 午後枠予約特典：提携スポットで使えるクーポン */
+export interface Coupon {
+  /** 提携スポット・店名 */
+  spot: string;
+  emoji: string;
+  /** 特典内容（例：明石焼き1皿サービス） */
+  benefit: string;
+  /** 提供元の種別 */
+  partner: "提携店舗" | "自治体" | "商工会議所";
 }
 
 export interface Staff {

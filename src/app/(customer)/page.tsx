@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { networkSummary } from "@/lib/optimizer";
-import { STORES, THEME_COLORS } from "@/lib/stores";
+import {
+  STORES,
+  THEME_COLORS,
+  TOTAL_COUPONS,
+  TOTAL_EBIKES,
+  EBIKE_BRAND,
+} from "@/lib/stores";
 import { Card, SectionTitle, CATEGORY_PHOTOS } from "@/components/ui";
 
 /* ─── エリアタイルのデータ ─── */
@@ -278,6 +284,70 @@ export default function Home() {
               今すぐ確認 →
             </Link>
           </Card>
+        </div>
+      </section>
+
+      {/* ════════════════ 午後予約の特典 ════════════════ */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-jet via-ink to-graphite text-white">
+        <div className="absolute inset-0 opacity-10 [background-image:radial-gradient(circle_at_80%_20%,white_2px,transparent_2px)] [background-size:30px_30px]" />
+        <div className="relative mx-auto max-w-6xl px-4 py-16">
+          <p className="text-amber-300 font-bold text-sm tracking-wide mb-1">
+            AFTERNOON PERKS
+          </p>
+          <h2 className="text-2xl md:text-3xl font-black">
+            午後の予約は、こんなにおトク。
+          </h2>
+          <p className="mt-2 text-white/70 max-w-2xl">
+            空いている午後枠を選ぶと、まちのクーポンと電動自転車の無料レンタル。
+            自治体・商工会議所とも連携し、地域ぐるみでお出かけを応援します。
+          </p>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {[
+              {
+                emoji: "🎟️",
+                stat: `${TOTAL_COUPONS}種`,
+                title: "午後予約クーポン",
+                body: "近隣の提携スポット・自治体・商工会議所のクーポンを発行。グルメや観光がおトクに。",
+                color: "text-harbor",
+              },
+              {
+                emoji: "🚲",
+                stat: `${TOTAL_EBIKES}台`,
+                title: "電動自転車を無料貸出",
+                body: `おしゃれな電動アシスト自転車「${EBIKE_BRAND}」を全店配備。クルマを預けて身軽にめぐろう。`,
+                color: "text-mountain",
+              },
+              {
+                emoji: "🤝",
+                stat: "地域連携",
+                title: "まちと相互送客",
+                body: "自治体・商工会議所と協力し、店舗とまちでお客様を送りあい、地域を活性化。",
+                color: "text-sea",
+              },
+            ].map((p) => (
+              <div
+                key={p.title}
+                className="rounded-2xl bg-white/10 backdrop-blur border border-white/15 p-6"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-4xl">{p.emoji}</span>
+                  <span className="text-2xl font-black text-amber-300">
+                    {p.stat}
+                  </span>
+                </div>
+                <h3 className="mt-3 text-lg font-black">{p.title}</h3>
+                <p className="mt-2 text-sm text-white/75 leading-relaxed">
+                  {p.body}
+                </p>
+              </div>
+            ))}
+          </div>
+          <Link
+            href="/perks"
+            className="mt-8 inline-block rounded-xl bg-accent text-white font-black px-7 py-3.5 shadow-xl hover:bg-accent-dark transition"
+          >
+            特典・地域連携をくわしく見る →
+          </Link>
         </div>
       </section>
 

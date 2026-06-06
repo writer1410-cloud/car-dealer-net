@@ -8,6 +8,7 @@ const customerNav = [
   { href: "/", label: "ホーム" },
   { href: "/availability", label: "空き店舗をさがす" },
   { href: "/stores", label: "店舗・おでかけ" },
+  { href: "/perks", label: "特典・地域連携" },
 ];
 
 export function CustomerHeader() {

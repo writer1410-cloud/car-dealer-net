@@ -29,6 +29,11 @@ export function SiteFooter() {
                 店舗・おでかけスポット
               </Link>
             </li>
+            <li>
+              <Link href="/perks" className="hover:text-white">
+                おでかけ特典・地域連携
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="text-sm">
