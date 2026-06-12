@@ -7,7 +7,9 @@ export type Area =
   | "東播磨"
   | "西播磨"
   | "北播磨"
-  | "丹波";
+  | "丹波"
+  | "但馬"
+  | "淡路";
 
 /** 整備サービスの種類 */
 export type ServiceType =

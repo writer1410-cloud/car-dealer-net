@@ -1,155 +1,95 @@
 import { Staff } from "./types";
+import { STORES, distanceKm, getStore } from "./stores";
 
 /**
  * スタッフマスタ（デモ用）。
- * homeStoreId が通常勤務店舗、canWorkStoreIds が応援可能店舗。
- * 「神戸店勤務だが、空いている日は明石店で勤務」といった
+ * 全店舗ぶんのスタッフを店舗データから決定論的に生成します。
+ * homeStoreId が通常勤務店舗、canWorkStoreIds が応援可能店舗（近隣店舗）。
+ * 「神戸店勤務だが、空いている日は近隣店で勤務」といった
  * 店舗をまたいだシフト管理を表現します。
  */
-export const STAFF: Staff[] = [
-  // 神戸本店
-  {
-    id: "s01",
-    name: "山田 健司",
-    homeStoreId: "kobe-honten",
-    canWorkStoreIds: ["nishinomiya", "amagasaki"],
-    skills: ["車検", "電装", "EV/HV"],
-    grade: "1級整備士",
-  },
-  {
-    id: "s02",
-    name: "佐藤 美咲",
-    homeStoreId: "kobe-honten",
-    canWorkStoreIds: ["nishinomiya"],
-    skills: ["車検", "板金"],
-    grade: "2級整備士",
-  },
-  {
-    id: "s03",
-    name: "田中 拓也",
-    homeStoreId: "kobe-honten",
-    canWorkStoreIds: ["akashi", "amagasaki"],
-    skills: ["一般整備", "タイヤ"],
-    grade: "メカニック",
-  },
-  {
-    id: "s04",
-    name: "中村 玲奈",
-    homeStoreId: "kobe-honten",
-    canWorkStoreIds: [],
-    skills: ["受付", "見積"],
-    grade: "フロント",
-  },
-  // 西宮店
-  {
-    id: "s05",
-    name: "小林 大輔",
-    homeStoreId: "nishinomiya",
-    canWorkStoreIds: ["kobe-honten", "amagasaki"],
-    skills: ["車検", "EV/HV"],
-    grade: "1級整備士",
-  },
-  {
-    id: "s06",
-    name: "加藤 七海",
-    homeStoreId: "nishinomiya",
-    canWorkStoreIds: ["amagasaki"],
-    skills: ["一般整備", "オイル"],
-    grade: "2級整備士",
-  },
-  {
-    id: "s07",
-    name: "吉田 翔",
-    homeStoreId: "nishinomiya",
-    canWorkStoreIds: ["kobe-honten"],
-    skills: ["受付", "保険"],
-    grade: "フロント",
-  },
-  // 尼崎店
-  {
-    id: "s08",
-    name: "山本 隆",
-    homeStoreId: "amagasaki",
-    canWorkStoreIds: ["nishinomiya", "kobe-honten"],
-    skills: ["車検", "一般整備"],
-    grade: "1級整備士",
-  },
-  {
-    id: "s09",
-    name: "松本 由香",
-    homeStoreId: "amagasaki",
-    canWorkStoreIds: ["nishinomiya"],
-    skills: ["一般整備", "タイヤ"],
-    grade: "メカニック",
-  },
-  // 明石店
-  {
-    id: "s10",
-    name: "井上 修",
-    homeStoreId: "akashi",
-    canWorkStoreIds: ["kakogawa", "himeji"],
-    skills: ["車検", "電装"],
-    grade: "1級整備士",
-  },
-  {
-    id: "s11",
-    name: "木村 彩",
-    homeStoreId: "akashi",
-    canWorkStoreIds: ["kakogawa"],
-    skills: ["一般整備", "オイル"],
-    grade: "2級整備士",
-  },
-  {
-    id: "s12",
-    name: "林 健太",
-    homeStoreId: "akashi",
-    canWorkStoreIds: ["kobe-honten", "kakogawa"],
-    skills: ["受付", "見積"],
-    grade: "フロント",
-  },
-  // 加古川店
-  {
-    id: "s13",
-    name: "清水 武",
-    homeStoreId: "kakogawa",
-    canWorkStoreIds: ["akashi", "himeji"],
-    skills: ["車検", "一般整備"],
-    grade: "1級整備士",
-  },
-  {
-    id: "s14",
-    name: "森田 真央",
-    homeStoreId: "kakogawa",
-    canWorkStoreIds: ["akashi"],
-    skills: ["一般整備", "タイヤ"],
-    grade: "メカニック",
-  },
-  // 姫路店
-  {
-    id: "s15",
-    name: "池田 浩二",
-    homeStoreId: "himeji",
-    canWorkStoreIds: ["kakogawa", "akashi"],
-    skills: ["車検", "EV/HV", "電装"],
-    grade: "1級整備士",
-  },
-  {
-    id: "s16",
-    name: "橋本 さくら",
-    homeStoreId: "himeji",
-    canWorkStoreIds: ["kakogawa"],
-    skills: ["一般整備", "板金"],
-    grade: "2級整備士",
-  },
-  {
-    id: "s17",
-    name: "石川 諒",
-    homeStoreId: "himeji",
-    canWorkStoreIds: ["kakogawa"],
-    skills: ["受付", "保険"],
-    grade: "フロント",
-  },
+
+const SURNAMES = [
+  "佐藤", "鈴木", "高橋", "田中", "伊藤", "渡辺", "山本", "中村", "小林", "加藤",
+  "吉田", "山田", "佐々木", "山口", "松本", "井上", "木村", "林", "清水", "森",
+  "池田", "橋本", "石川", "前田", "藤田", "後藤", "岡田", "長谷川", "村上", "近藤",
+  "坂本", "遠藤", "青木", "西村", "福田",
 ];
+const GIVEN = [
+  "健司", "美咲", "拓也", "玲奈", "大輔", "七海", "翔", "由香", "隆", "彩",
+  "修", "真央", "浩二", "さくら", "諒", "愛", "大樹", "優", "直樹", "陽子",
+  "亮太", "香織", "和也", "結衣", "健太", "彩花", "涼", "美穂", "武", "千夏",
+];
+
+const SKILL = {
+  "1級整備士": ["車検", "EV/HV", "電装", "故障診断"],
+  "2級整備士": ["車検", "一般整備", "板金"],
+  メカニック: ["一般整備", "タイヤ", "オイル"],
+  フロント: ["受付", "見積", "保険"],
+} as const;
+
+type Grade = Staff["grade"];
+
+function pickSkills(grade: Grade, seed: number): string[] {
+  const pool = SKILL[grade];
+  const out = new Set<string>();
+  for (let j = 0; j < 2; j++) out.add(pool[(seed + j * 2) % pool.length]);
+  return [...out];
+}
+
+/** 近隣（maxKm以内）の店舗IDを近い順に count 件 */
+function nearestStoreIds(storeId: string, count: number, maxKm: number): string[] {
+  const store = getStore(storeId)!;
+  return STORES.filter((s) => s.id !== storeId)
+    .map((s) => ({ id: s.id, d: distanceKm(store, s) }))
+    .filter((x) => x.d <= maxKm)
+    .sort((a, b) => a.d - b.d)
+    .slice(0, count)
+    .map((x) => x.id);
+}
+
+let counter = 0;
+
+export const STAFF: Staff[] = STORES.flatMap((store) => {
+  const size = store.bays; // ピット数に応じた人数
+  const near2 = nearestStoreIds(store.id, 2, 35);
+  const near1 = nearestStoreIds(store.id, 1, 30);
+
+  return Array.from({ length: size }, (_, i) => {
+    counter++;
+    const id = "s" + String(counter).padStart(3, "0");
+
+    let grade: Grade;
+    let canWork: string[];
+    if (i === 0) {
+      grade = "1級整備士";
+      canWork = near2;
+    } else if (i === size - 1) {
+      grade = "フロント";
+      canWork = near1;
+    } else if (i % 2 === 1) {
+      grade = "2級整備士";
+      canWork = near2;
+    } else {
+      grade = "メカニック";
+      canWork = near1;
+    }
+
+    const name =
+      SURNAMES[counter % SURNAMES.length] +
+      " " +
+      GIVEN[(counter * 3) % GIVEN.length];
+
+    return {
+      id,
+      name,
+      homeStoreId: store.id,
+      canWorkStoreIds: canWork,
+      skills: pickSkills(grade, counter),
+      grade,
+    } satisfies Staff;
+  });
+});
 
 export const STAFF_MAP: Record<string, Staff> = Object.fromEntries(
   STAFF.map((s) => [s.id, s]),

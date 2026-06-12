@@ -20,11 +20,13 @@ import { Area, ServiceType } from "./types";
 /** エリアの代表座標（おでかけ先の指定に使用） */
 export const AREA_CENTERS: Record<Area, { lat: number; lng: number }> = {
   神戸: { lat: 34.69, lng: 135.195 },
-  阪神: { lat: 34.71, lng: 135.38 },
+  阪神: { lat: 34.76, lng: 135.38 },
   東播磨: { lat: 34.7, lng: 134.89 },
-  西播磨: { lat: 34.79, lng: 134.69 },
-  北播磨: { lat: 34.92, lng: 134.99 },
+  西播磨: { lat: 34.81, lng: 134.69 },
+  北播磨: { lat: 34.95, lng: 134.98 },
   丹波: { lat: 35.17, lng: 135.13 },
+  但馬: { lat: 35.54, lng: 134.82 },
+  淡路: { lat: 34.36, lng: 134.89 },
 };
 
 export const AREA_LIST = Object.keys(AREA_CENTERS) as Area[];

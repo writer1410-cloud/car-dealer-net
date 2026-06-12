@@ -22,19 +22,19 @@ const AREAS = [
     fallback: "#075985",
     tag: "sea" as const,
     emoji: "⛵",
-    stores: ["神戸本店", "西宮店", "尼崎店"],
+    stores: ["神戸本店", "灘店", "垂水多聞店", "西宮店"],
   },
   {
-    name: "播磨エリア",
+    name: "播磨・但馬・淡路エリア",
     sub: "城・自然・名物グルメ",
-    desc: "姫路城・明石海峡・加古川かつめし…播磨の海と山でゆったり一日。",
-    area: "東播磨",
+    desc: "姫路城・明石海峡・城崎温泉・淡路うずしお…播磨から但馬・淡路まで。",
+    area: "西播磨",
     photo:
       "https://images.unsplash.com/photo-1558980394-35d349b8dbce?w=900&h=600&q=80&auto=format&fit=crop",
     fallback: "#15803d",
     tag: "mountain" as const,
     emoji: "🏯",
-    stores: ["明石店", "加古川店", "姫路店"],
+    stores: ["姫路店", "大久保店", "豊岡店", "洲本店"],
   },
 ];
 
@@ -434,7 +434,7 @@ export default function Home() {
               emoji: "🤝",
               num: "03",
               title: "スタッフが店舗をまたいで動く",
-              body: "神戸店が空いている日は明石店へ応援。AIが需要に合わせてスタッフ配置を最適化します。",
+              body: "神戸本店が空いている日は近隣の灘店へ応援。AIが需要に合わせてスタッフ配置を最適化します。",
               href: "/staff",
               cta: "配置を見る",
               color: "text-harbor",
