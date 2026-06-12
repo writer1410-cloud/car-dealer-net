@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORES, getStore, THEME_COLORS, EBIKE_BRAND } from "@/lib/stores";
+import { STORES, getStore, THEME_COLORS, EBIKE_BRAND, pic } from "@/lib/stores";
 import { DATES, formatDate, openSlots } from "@/lib/schedule";
 import { staffOfStore, helpersForStore } from "@/lib/staff";
-import { Badge, Card, CATEGORY_PHOTOS } from "@/components/ui";
+import { Badge, Card } from "@/components/ui";
 import { Spot } from "@/lib/types";
 
 export function generateStaticParams() {
@@ -55,7 +55,6 @@ export default async function StoreDetail({
           priority
           sizes="100vw"
           className="object-cover"
-          unoptimized={false}
         />
         <div className="photo-overlay-side absolute inset-0" />
 
@@ -115,7 +114,7 @@ export default async function StoreDetail({
               </h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 {g.items.map((sp) => {
-                  const photo = sp.photo ?? CATEGORY_PHOTOS[sp.category];
+                  const photo = sp.photo ?? pic("spot-" + sp.name, 600, 400);
                   return (
                     <div
                       key={sp.name}
@@ -129,7 +128,6 @@ export default async function StoreDetail({
                           fill
                           sizes="(max-width:640px) 100vw, 50vw"
                           className="object-cover group-hover:scale-105 transition duration-500"
-                          unoptimized={false}
                         />
                         <div className="photo-overlay absolute inset-0 opacity-60" />
                         <div className="absolute bottom-3 left-3">

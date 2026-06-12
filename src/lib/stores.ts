@@ -1,22 +1,28 @@
 import { Store, Coupon, ServiceMeta, ServiceType } from "./types";
 
-/* ─── Unsplash 写真 URL ─────────────────────────────────
- * ブラウザ・Vercel 経由では正常に表示されます。
- * next/image の remotePatterns に images.unsplash.com を設定済み。
+/* ─── 画像URL（Lorem Picsum）─────────────────────────────
+ * シードを与えると常に同じ実写真を返すため、リンク切れが起きません。
+ * next/image の remotePatterns に picsum.photos を設定済み。
  * ─────────────────────────────────────────────────────── */
-const U = (id: string, w = 1200, h = 800) =>
-  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&q=80&auto=format&fit=crop`;
+export const pic = (seed: string, w = 1200, h = 800) => {
+  // 日本語など非ASCIIを含むシードでもURLが壊れないよう、ASCIIスラッグ＋ハッシュ化
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  const ascii = seed.replace(/[^a-zA-Z0-9-]/g, "");
+  const slug = `${ascii || "x"}-${hash.toString(36)}`;
+  return `https://picsum.photos/seed/kmz-${slug}/${w}/${h}`;
+};
 
-/** テーマ別の代表写真（兵庫の海・山・港・城をイメージ） */
+/** テーマ別の代表写真（リテラル用の初期値。後段で店舗ごとに上書き） */
 const PHOTO = {
-  seaA: U("1545569341-9eb8b30979d9"),
-  seaB: U("1558980394-35d349b8dbce"),
-  harborA: U("1516738901171-8eb4fc13bd20"),
-  harborB: U("1503899036-c27b63e5fd26"),
-  mountainA: U("1540220695491-c79def14c7f9"),
-  mountainB: U("1476514525535-07fb3b4ae5f1"),
-  mountainC: U("1506905925346-21bda4d32df4"),
-  castle: U("1580019542155-247062e19ce4"),
+  seaA: pic("seaA"),
+  seaB: pic("seaB"),
+  harborA: pic("harborA"),
+  harborB: pic("harborB"),
+  mountainA: pic("mountainA"),
+  mountainB: pic("mountainB"),
+  mountainC: pic("mountainC"),
+  castle: pic("castle"),
 };
 
 const cp = (
@@ -543,6 +549,11 @@ export const STORES: Store[] = [
     ],
   },
 ];
+
+// 店舗ごとにユニークな写真を割り当て（リンク切れしない Picsum）
+for (const s of STORES) {
+  s.photo = pic(s.id);
+}
 
 export const STORE_MAP: Record<string, Store> = Object.fromEntries(
   STORES.map((s) => [s.id, s]),

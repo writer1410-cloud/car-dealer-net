@@ -43,7 +43,6 @@ export default function StoresPage() {
                     fill
                     sizes="(max-width:768px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition duration-500"
-                    unoptimized={false}
                   />
                   <div className="photo-overlay absolute inset-0" />
                   <div className="absolute inset-0 p-5 flex flex-col justify-end">

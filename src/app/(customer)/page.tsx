@@ -7,6 +7,7 @@ import {
   TOTAL_COUPONS,
   TOTAL_EBIKES,
   EBIKE_BRAND,
+  pic,
 } from "@/lib/stores";
 import { Card, SectionTitle, CATEGORY_PHOTOS } from "@/components/ui";
 
@@ -17,8 +18,7 @@ const AREAS = [
     sub: "港・海・グルメ",
     desc: "神戸ハーバー・南京町・異人館…海風と異国情緒の街をめぐりながら。",
     area: "神戸",
-    photo:
-      "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=900&h=600&q=80&auto=format&fit=crop",
+    photo: pic("area-kobe-hanshin", 900, 600),
     fallback: "#075985",
     tag: "sea" as const,
     emoji: "⛵",
@@ -29,8 +29,7 @@ const AREAS = [
     sub: "城・自然・名物グルメ",
     desc: "姫路城・明石海峡・城崎温泉・淡路うずしお…播磨から但馬・淡路まで。",
     area: "西播磨",
-    photo:
-      "https://images.unsplash.com/photo-1558980394-35d349b8dbce?w=900&h=600&q=80&auto=format&fit=crop",
+    photo: pic("area-harima-tajima-awaji", 900, 600),
     fallback: "#15803d",
     tag: "mountain" as const,
     emoji: "🏯",
@@ -74,13 +73,12 @@ export default function Home() {
       {/* ═══════════════════════════════ HERO ═══════════════════════════════ */}
       <section className="relative h-[90vh] min-h-[560px] max-h-[820px] overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=1600&h=1000&q=85&auto=format&fit=crop"
-          alt="神戸港の夜景"
+          src={pic("hero-kobe-port", 1600, 1000)}
+          alt="兵庫の風景"
           fill
           priority
           sizes="100vw"
           className="object-cover"
-          unoptimized={false}
         />
         {/* 左→右のグラデオーバーレイ */}
         <div className="photo-overlay-side absolute inset-0" />
@@ -150,7 +148,6 @@ export default function Home() {
                   fill
                   sizes="(max-width:768px) 100vw, 50vw"
                   className="object-cover group-hover:scale-105 transition duration-500"
-                  unoptimized={false}
                 />
                 <div className="photo-overlay absolute inset-0" />
                 <div className="absolute inset-0 p-6 flex flex-col justify-end">
@@ -213,7 +210,6 @@ export default function Home() {
                     fill
                     sizes="(max-width:640px) 50vw, 25vw"
                     className="object-cover group-hover:scale-105 transition duration-500"
-                    unoptimized={false}
                   />
                   <div className="photo-overlay absolute inset-0" />
                   <div className="absolute inset-0 p-4 flex flex-col justify-end">
@@ -370,7 +366,6 @@ export default function Home() {
                       fill
                       sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition duration-500"
-                      unoptimized={false}
                     />
                     <div className="photo-overlay absolute inset-0" />
                     <div className="absolute inset-0 p-5 flex flex-col justify-end">

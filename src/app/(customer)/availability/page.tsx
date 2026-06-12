@@ -131,7 +131,6 @@ const results = useMemo(
                       fill
                       sizes="(max-width:768px) 100vw, 208px"
                       className="object-cover"
-                      unoptimized={false}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-jet/80 to-transparent" />
                     {isTop && (
