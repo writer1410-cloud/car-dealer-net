@@ -25,6 +25,12 @@ export interface RentalPlan {
   fromStoreId: string;
   /** バッジ（人気・お得など） */
   badge?: string;
+  /** 訪日外国人向けプランか */
+  inbound?: boolean;
+  /** 対応言語（インバウンド向け） */
+  langs?: string[];
+  /** 英語サブタイトル（インバウンド向け） */
+  subtitleEn?: string;
 }
 
 const photo = (id: string, w = 1200, h = 800) => pic("rental-" + id, w, h);
@@ -145,6 +151,52 @@ export const PLANS: RentalPlan[] = [
     spots: ["うずしお", "洲本温泉", "ONOKORO", "淡路島グルメ"],
     fromStoreId: "sumoto",
   },
+  // ───────── インバウンド向けプラン（神戸空港 国際化対応）─────────
+  {
+    id: "kobe-airport-1day",
+    name: "神戸空港発 神戸＆有馬 1DAYドライブ",
+    type: "日帰り",
+    area: "神戸",
+    price: 12800,
+    priceNote: "/ 1台（コンパクト・税込）",
+    carClass: "コンパクト〜ミドル",
+    catch: "神戸空港でレンタル、その日のうちに神戸と有馬温泉を満喫。",
+    badge: "訪日対応",
+    inbound: true,
+    langs: ["EN", "中文", "한국어"],
+    subtitleEn: "Kobe Airport pick-up · Kobe city & Arima Onsen day trip",
+    includes: [
+      "神戸空港カウンターで受取／返却",
+      "多言語ナビ＆英語サポートデスク",
+      "観光スポット入場クーポン",
+      "Wi-Fiルーター・ETC・免責補償込み",
+    ],
+    spots: ["南京町", "北野異人館", "有馬温泉", "メリケンパーク"],
+    fromStoreId: "kobe-honten",
+  },
+  {
+    id: "kobe-airport-2days",
+    name: "Kobe Airport発着 姫路城＆城崎温泉 2DAYS",
+    type: "宿泊",
+    area: "西播磨",
+    price: 39800,
+    priceNote: "/ 1名（1泊2食・レンタカー込み）",
+    carClass: "ミドル〜SUV",
+    catch: "空港発着で世界遺産と名湯をめぐる、訪日ゴールデンルート。",
+    badge: "訪日対応",
+    inbound: true,
+    langs: ["EN", "中文", "한국어"],
+    subtitleEn: "Kobe Airport in/out · Himeji Castle & Kinosaki Onsen 2-day tour",
+    includes: [
+      "神戸空港カウンターで受取／返却",
+      "多言語ナビ＆24時間英語サポート",
+      "城崎温泉 旅館1泊2食付き",
+      "姫路城・外湯めぐり 入場パス",
+      "Wi-Fiルーター・ETC・免責補償込み",
+    ],
+    spots: ["姫路城", "書写山圓教寺", "城崎温泉", "玄武洞"],
+    fromStoreId: "himeji",
+  },
 ];
 
 export const PLAN_MAP: Record<string, RentalPlan> = Object.fromEntries(
@@ -157,6 +209,7 @@ export function planPhoto(p: RentalPlan, w = 1200, h = 800): string {
 
 export const DAY_PLANS = PLANS.filter((p) => p.type === "日帰り");
 export const STAY_PLANS = PLANS.filter((p) => p.type === "宿泊");
+export const INBOUND_PLANS = PLANS.filter((p) => p.inbound);
 
 export function formatYen(n: number): string {
   return "¥" + n.toLocaleString("ja-JP");

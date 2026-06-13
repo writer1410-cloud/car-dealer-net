@@ -3,12 +3,11 @@ import Link from "next/link";
 import {
   DAY_PLANS,
   STAY_PLANS,
-  RentalPlan,
-  planPhoto,
-  formatYen,
+  INBOUND_PLANS,
 } from "@/lib/rentacar";
-import { getStore, pic } from "@/lib/stores";
-import { Badge, Card, SectionTitle } from "@/components/ui";
+import { pic } from "@/lib/stores";
+import { Card, SectionTitle } from "@/components/ui";
+import { PlanCard } from "@/components/PlanCard";
 
 export const metadata = {
   title: "レンタカープラン | 神戸マツダ ぐるっと点検ネット",
@@ -43,14 +42,22 @@ export default function RentacarPage() {
               </h1>
               <p className="mt-4 text-white/85 text-base md:text-lg max-w-md leading-relaxed">
                 観光スポットとセットでおトクな日帰り＆宿泊プラン。
-                最新のマツダ車で、兵庫のおでかけを存分に楽しめます。
+                神戸空港の国際化を見据えた訪日対応プランもご用意。
               </p>
-              <Link
-                href="#plans"
-                className="mt-6 inline-block rounded-xl bg-accent text-white font-black px-7 py-3.5 shadow-xl hover:bg-accent-dark transition"
-              >
-                プランを見る →
-              </Link>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link
+                  href="/rentacar/day"
+                  className="rounded-xl bg-accent text-white font-black px-6 py-3 shadow-xl hover:bg-accent-dark transition"
+                >
+                  日帰りプラン →
+                </Link>
+                <Link
+                  href="/rentacar/stay"
+                  className="rounded-xl bg-white/15 text-white font-bold px-6 py-3 backdrop-blur border border-white/30 hover:bg-white/25 transition"
+                >
+                  宿泊プラン →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -66,9 +73,9 @@ export default function RentacarPage() {
         <section className="mx-auto max-w-6xl px-4 pt-12 pb-4">
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              { emoji: "🚗", title: "最新のマツダ車", body: "気持ちよく走るマツダ車を、軽自動車からミドルクラスまで。" },
+              { emoji: "🚗", title: "最新のマツダ車", body: "気持ちよく走るマツダ車を、軽自動車からSUVまで。" },
               { emoji: "🎟️", title: "観光クーポン付き", body: "提携スポットの入場・グルメ割引クーポンがセット。" },
-              { emoji: "🛠️", title: "点検とセットでおトク", body: "車検・点検のご利用で、レンタカー料金を特別価格に。" },
+              { emoji: "🌏", title: "訪日のお客様も安心", body: "神戸空港受取・多言語サポートのインバウンドプラン。" },
             ].map((f) => (
               <Card key={f.title} className="p-5">
                 <div className="text-3xl">{f.emoji}</div>
@@ -79,37 +86,47 @@ export default function RentacarPage() {
           </div>
         </section>
 
-        {/* 日帰りプラン */}
-        <section id="plans" className="mx-auto max-w-6xl px-4 py-12">
-          <SectionTitle
-            eyebrow="日帰りレンタカープラン"
-            title="観光スポットとめぐる、お得な日帰りドライブ。"
-            desc="人気の観光地と入場・グルメクーポンがセットになった日帰りプラン。朝に出発して、夜には帰着できます。"
-          />
-          <div className="grid gap-6 md:grid-cols-2">
-            {DAY_PLANS.map((p) => (
-              <PlanCard key={p.id} plan={p} />
-            ))}
-          </div>
+        {/* プランタイプへの導線 */}
+        <section className="mx-auto max-w-6xl px-4 py-10 grid gap-5 md:grid-cols-2">
+          <Link href="/rentacar/day" className="group">
+            <div className="relative h-44 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+              <Image src={pic("rentacar-day", 800, 400)} alt="日帰りプラン" fill sizes="50vw" className="object-cover group-hover:scale-105 transition duration-500" />
+              <div className="photo-overlay absolute inset-0" />
+              <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                <h3 className="text-2xl font-black text-white">日帰りプラン</h3>
+                <p className="text-sm text-white/80">朝出発・夜帰着。観光地とめぐる{DAY_PLANS.length}プラン →</p>
+              </div>
+            </div>
+          </Link>
+          <Link href="/rentacar/stay" className="group">
+            <div className="relative h-44 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
+              <Image src={pic("rentacar-stay", 800, 400)} alt="宿泊プラン" fill sizes="50vw" className="object-cover group-hover:scale-105 transition duration-500" />
+              <div className="photo-overlay absolute inset-0" />
+              <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                <h3 className="text-2xl font-black text-white">宿泊プラン</h3>
+                <p className="text-sm text-white/80">温泉も絶景も。泊まりで楽しむ{STAY_PLANS.length}プラン →</p>
+              </div>
+            </div>
+          </Link>
         </section>
 
-        {/* 宿泊プラン */}
+        {/* インバウンド向け */}
         <section className="bg-white border-y border-mist">
           <div className="mx-auto max-w-6xl px-4 py-12">
             <SectionTitle
-              eyebrow="宿泊レンタカープラン"
-              title="温泉も絶景も。泊まりで楽しむ兵庫の旅。"
-              desc="レンタカー＋宿泊＋観光がセットになった、ちょっと贅沢な1泊2日プラン。"
+              eyebrow="FOR INTERNATIONAL VISITORS / 訪日のお客様へ"
+              title="神戸空港から、はじまる兵庫の旅。"
+              desc="神戸空港の国際化を見据え、空港でのレンタル・多言語サポート付きの
+              インバウンド向けプランをご用意。到着その日から快適にドライブを。"
             />
             <div className="grid gap-6 md:grid-cols-2">
-              {STAY_PLANS.map((p) => (
+              {INBOUND_PLANS.map((p) => (
                 <PlanCard key={p.id} plan={p} />
               ))}
             </div>
           </div>
         </section>
 
-        {/* 注意書き */}
         <section className="mx-auto max-w-6xl px-4 py-10">
           <p className="text-xs text-ink/45 leading-relaxed">
             ※ 掲載の料金・内容はデモ用のイメージです。車種・期間・繁忙期により料金は変動します。
@@ -118,84 +135,5 @@ export default function RentacarPage() {
         </section>
       </div>
     </div>
-  );
-}
-
-function PlanCard({ plan }: { plan: RentalPlan }) {
-  const store = getStore(plan.fromStoreId);
-  return (
-    <Card className="overflow-hidden flex flex-col">
-      <div className="relative h-48">
-        <Image
-          src={planPhoto(plan, 800, 500)}
-          alt={plan.name}
-          fill
-          sizes="(max-width:768px) 100vw, 50vw"
-          className="object-cover"
-        />
-        <div className="photo-overlay absolute inset-0" />
-        <div className="absolute top-3 left-3 flex gap-2">
-          <Badge tone={plan.type === "日帰り" ? "sea" : "harbor"}>
-            {plan.type}
-          </Badge>
-          {plan.badge && <Badge tone="accent">{plan.badge}</Badge>}
-        </div>
-        <div className="absolute bottom-3 left-4 right-4 text-white">
-          <p className="text-xs text-white/80">{plan.area}エリア</p>
-          <h3 className="text-lg font-black leading-snug">{plan.name}</h3>
-        </div>
-      </div>
-      <div className="p-5 flex-1 flex flex-col">
-        <p className="text-sm text-ink/70">{plan.catch}</p>
-
-        <div className="mt-3 flex items-end gap-1">
-          <span className="text-2xl font-black text-accent">
-            {formatYen(plan.price)}
-          </span>
-          <span className="text-xs text-ink/50 mb-1">{plan.priceNote}</span>
-        </div>
-        <p className="text-xs text-ink/50">車種：{plan.carClass}</p>
-
-        <div className="mt-4">
-          <p className="text-xs font-bold text-ink/50 mb-1">プランに含まれるもの</p>
-          <ul className="space-y-1">
-            {plan.includes.map((inc) => (
-              <li key={inc} className="text-sm text-ink/75 flex items-start gap-1.5">
-                <span className="text-mountain mt-0.5 shrink-0">✓</span>
-                {inc}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-4">
-          <p className="text-xs font-bold text-ink/50 mb-1">めぐれるスポット</p>
-          <div className="flex flex-wrap gap-1.5">
-            {plan.spots.map((s) => (
-              <span
-                key={s}
-                className="rounded-full bg-mist px-2.5 py-1 text-xs text-ink/70"
-              >
-                {s}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-5 flex gap-2">
-          <button className="flex-1 rounded-xl bg-accent text-white font-bold px-4 py-2.5 hover:bg-accent-dark transition">
-            このプランを予約（デモ）
-          </button>
-          {store && (
-            <Link
-              href={`/stores/${store.id}`}
-              className="rounded-xl border border-mist font-bold px-4 py-2.5 hover:bg-mist transition whitespace-nowrap"
-            >
-              出発店舗
-            </Link>
-          )}
-        </div>
-      </div>
-    </Card>
   );
 }

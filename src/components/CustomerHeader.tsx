@@ -6,10 +6,10 @@ import { useState } from "react";
 
 const customerNav = [
   { href: "/", label: "ホーム" },
-  { href: "/availability", label: "空き店舗" },
-  { href: "/stores", label: "店舗・おでかけ" },
   { href: "/media", label: "おでかけ特集" },
+  { href: "/spots", label: "ジャンルで探す" },
   { href: "/rentacar", label: "レンタカー" },
+  { href: "/stores", label: "店舗・空き枠" },
   { href: "/perks", label: "特典" },
 ];
 

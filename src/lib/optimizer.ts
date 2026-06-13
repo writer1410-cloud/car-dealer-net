@@ -207,3 +207,22 @@ export function networkSummary(dates = DATES) {
     storeCount: STORES.length,
   };
 }
+
+/**
+ * エリアごとの空き枠合計をランキング（空きが多い順）。
+ * トップページの「空きが多いエリアの注目スポット」紹介に使用。
+ */
+export function areaOpenRanking(dates = DATES): { area: Area; open: number }[] {
+  const map = new Map<Area, number>();
+  for (const store of STORES) {
+    let open = 0;
+    for (const d of dates) {
+      const o = openSlots(store.id, d);
+      open += o.am + o.pm;
+    }
+    map.set(store.area, (map.get(store.area) ?? 0) + open);
+  }
+  return [...map.entries()]
+    .map(([area, open]) => ({ area, open }))
+    .sort((a, b) => b.open - a.open);
+}

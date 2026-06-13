@@ -35,6 +35,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/spots" className="hover:text-white">
+                ジャンルでスポットを探す
+              </Link>
+            </li>
+            <li>
               <Link href="/rentacar" className="hover:text-white">
                 レンタカープラン
               </Link>
