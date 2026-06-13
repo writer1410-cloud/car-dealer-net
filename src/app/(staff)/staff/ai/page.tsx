@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import {
   afternoonShiftSuggestions,
   crossStoreSuggestions,
-  staffMoveSuggestions,
   networkSummary,
 } from "@/lib/optimizer";
 import { formatDate } from "@/lib/schedule";
@@ -17,7 +16,6 @@ const KIND_META: Record<
 > = {
   "afternoon-shift": { label: "午後への誘導", emoji: "🌤️", tone: "warn" },
   "cross-store": { label: "近隣店舗へ振り分け", emoji: "🔄", tone: "ink" },
-  "staff-move": { label: "スタッフ応援配置", emoji: "🤝", tone: "good" },
 };
 
 type Filter = "all" | keyof typeof KIND_META;
@@ -25,19 +23,18 @@ type Filter = "all" | keyof typeof KIND_META;
 export default function AiPage() {
   const [filter, setFilter] = useState<Filter>("all");
 
-  const { afternoon, cross, staff, sum } = useMemo(
+  const { afternoon, cross, sum } = useMemo(
     () => ({
       afternoon: afternoonShiftSuggestions(),
       cross: crossStoreSuggestions(),
-      staff: staffMoveSuggestions(),
       sum: networkSummary(),
     }),
     [],
   );
 
   const all = useMemo(
-    () => [...afternoon, ...cross, ...staff].sort((a, b) => b.severity - a.severity),
-    [afternoon, cross, staff],
+    () => [...afternoon, ...cross].sort((a, b) => b.severity - a.severity),
+    [afternoon, cross],
   );
 
   const shown =
@@ -47,7 +44,6 @@ export default function AiPage() {
     { key: "all", label: "すべて", count: all.length },
     { key: "afternoon-shift", label: "午後誘導", count: afternoon.length },
     { key: "cross-store", label: "店舗振り分け", count: cross.length },
-    { key: "staff-move", label: "応援配置", count: staff.length },
   ];
 
   return (
@@ -55,7 +51,7 @@ export default function AiPage() {
       <SectionTitle
         eyebrow="AI最適化アシスタント"
         title="スケジュールは、AIが整える。"
-        desc="入庫枠の偏り・店舗間の混雑差・スタッフの過不足を常時モニタリングし、
+        desc="入庫枠の偏りや店舗間の混雑差を常時モニタリングし、
         平準化のための具体的なアクションを提案します。"
       />
 
@@ -78,11 +74,9 @@ export default function AiPage() {
               </b>
               。約{(sum.imbalance * 100).toFixed(0)}ポイントの偏りがあります。
               <b className="text-amber-200"> {afternoon.length}件</b>
-              の午後誘導、
+              の午後誘導と
               <b className="text-amber-200"> {cross.length}件</b>
-              の店舗振り分け、
-              <b className="text-amber-200"> {staff.length}件</b>
-              の応援配置を実施すると、待ち時間とスタッフ稼働のムラを大きく改善できます。
+              の店舗振り分けを実施すると、待ち時間と稼働のムラを大きく改善できます。
               まずは重要度の高い提案から着手することをおすすめします。
             </p>
           </div>

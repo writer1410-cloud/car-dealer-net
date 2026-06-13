@@ -80,10 +80,8 @@ export interface Coupon {
 export interface Staff {
   id: string;
   name: string;
-  /** 通常勤務する店舗ID */
+  /** 勤務する店舗ID */
   homeStoreId: string;
-  /** 応援勤務が可能な店舗ID */
-  canWorkStoreIds: string[];
   /** 保有資格・得意分野 */
   skills: string[];
   /** 1級/2級整備士など */
@@ -114,7 +112,7 @@ export interface DayLoad {
   amBooked: number;
   pmCapacity: number;
   pmBooked: number;
-  /** その日に出勤するスタッフ数（応援含む） */
+  /** その日に出勤するスタッフ数 */
   staffCount: number;
 }
 
@@ -122,7 +120,6 @@ export interface DayLoad {
 export type SuggestionKind =
   | "afternoon-shift" // 午後への誘導
   | "cross-store" // 近隣店舗への振り分け
-  | "staff-move" // スタッフの応援配置
   | "ok"; // 問題なし
 
 export interface Suggestion {

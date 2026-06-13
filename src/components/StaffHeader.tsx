@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const staffNav = [
   { href: "/staff", label: "ダッシュボード" },
-  { href: "/staff/members", label: "スタッフ配置" },
+  { href: "/staff/members", label: "スタッフ体制" },
   { href: "/staff/ai", label: "AI最適化" },
 ];
 

@@ -30,6 +30,16 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/media" className="hover:text-white">
+                兵庫おでかけ特集
+              </Link>
+            </li>
+            <li>
+              <Link href="/rentacar" className="hover:text-white">
+                レンタカープラン
+              </Link>
+            </li>
+            <li>
               <Link href="/perks" className="hover:text-white">
                 おでかけ特典・地域連携
               </Link>

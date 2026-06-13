@@ -6,9 +6,11 @@ import { useState } from "react";
 
 const customerNav = [
   { href: "/", label: "ホーム" },
-  { href: "/availability", label: "空き店舗をさがす" },
+  { href: "/availability", label: "空き店舗" },
   { href: "/stores", label: "店舗・おでかけ" },
-  { href: "/perks", label: "特典・地域連携" },
+  { href: "/media", label: "おでかけ特集" },
+  { href: "/rentacar", label: "レンタカー" },
+  { href: "/perks", label: "特典" },
 ];
 
 export function CustomerHeader() {
@@ -19,7 +21,7 @@ export function CustomerHeader() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-mist">
-      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between gap-4">
+      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between gap-3">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <span className="grid place-items-center w-9 h-9 rounded-full bg-gradient-to-br from-graphite to-ink text-white font-black ring-1 ring-silver/50">
             M
@@ -34,12 +36,12 @@ export function CustomerHeader() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-0.5">
           {customerNav.map((n) => (
             <Link
               key={n.href}
               href={n.href}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition ${
+              className={`px-2.5 py-2 rounded-lg text-sm font-medium transition ${
                 isActive(n.href)
                   ? "text-ink bg-ink/10"
                   : "text-ink/70 hover:text-ink hover:bg-ink/5"
@@ -50,14 +52,14 @@ export function CustomerHeader() {
           ))}
           <Link
             href="/availability"
-            className="ml-2 rounded-lg bg-accent text-white text-sm font-bold px-4 py-2 hover:bg-accent-dark transition"
+            className="ml-1.5 rounded-lg bg-accent text-white text-sm font-bold px-4 py-2 hover:bg-accent-dark transition"
           >
             予約する
           </Link>
-          <span className="mx-2 h-5 w-px bg-mist" />
+          <span className="mx-1.5 h-5 w-px bg-mist" />
           <Link
             href="/staff"
-            className="text-xs text-ink/40 hover:text-ink/70"
+            className="text-xs text-ink/40 hover:text-ink/70 whitespace-nowrap"
           >
             スタッフの方 →
           </Link>
@@ -65,7 +67,7 @@ export function CustomerHeader() {
 
         <button
           aria-label="メニュー"
-          className="md:hidden p-2 rounded-lg hover:bg-mist"
+          className="lg:hidden p-2 rounded-lg hover:bg-mist"
           onClick={() => setOpen((v) => !v)}
         >
           <div className="w-5 space-y-1">
@@ -77,7 +79,7 @@ export function CustomerHeader() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-mist bg-white px-4 py-3 space-y-1">
+        <div className="lg:hidden border-t border-mist bg-white px-4 py-3 space-y-1">
           {customerNav.map((n) => (
             <Link
               key={n.href}
@@ -90,6 +92,13 @@ export function CustomerHeader() {
               {n.label}
             </Link>
           ))}
+          <Link
+            href="/availability"
+            onClick={() => setOpen(false)}
+            className="block px-3 py-2 rounded-lg text-sm font-bold bg-accent text-white text-center"
+          >
+            予約する
+          </Link>
           <Link
             href="/staff"
             onClick={() => setOpen(false)}

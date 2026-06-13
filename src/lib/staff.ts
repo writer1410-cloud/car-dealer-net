@@ -1,12 +1,10 @@
 import { Staff } from "./types";
-import { STORES, distanceKm, getStore } from "./stores";
+import { STORES } from "./stores";
 
 /**
  * スタッフマスタ（デモ用）。
  * 全店舗ぶんのスタッフを店舗データから決定論的に生成します。
- * homeStoreId が通常勤務店舗、canWorkStoreIds が応援可能店舗（近隣店舗）。
- * 「神戸店勤務だが、空いている日は近隣店で勤務」といった
- * 店舗をまたいだシフト管理を表現します。
+ * 各スタッフは所属店舗(homeStoreId)に固定で勤務します。
  */
 
 const SURNAMES = [
@@ -37,43 +35,20 @@ function pickSkills(grade: Grade, seed: number): string[] {
   return [...out];
 }
 
-/** 近隣（maxKm以内）の店舗IDを近い順に count 件 */
-function nearestStoreIds(storeId: string, count: number, maxKm: number): string[] {
-  const store = getStore(storeId)!;
-  return STORES.filter((s) => s.id !== storeId)
-    .map((s) => ({ id: s.id, d: distanceKm(store, s) }))
-    .filter((x) => x.d <= maxKm)
-    .sort((a, b) => a.d - b.d)
-    .slice(0, count)
-    .map((x) => x.id);
-}
-
 let counter = 0;
 
 export const STAFF: Staff[] = STORES.flatMap((store) => {
   const size = store.bays; // ピット数に応じた人数
-  const near2 = nearestStoreIds(store.id, 2, 35);
-  const near1 = nearestStoreIds(store.id, 1, 30);
 
   return Array.from({ length: size }, (_, i) => {
     counter++;
     const id = "s" + String(counter).padStart(3, "0");
 
     let grade: Grade;
-    let canWork: string[];
-    if (i === 0) {
-      grade = "1級整備士";
-      canWork = near2;
-    } else if (i === size - 1) {
-      grade = "フロント";
-      canWork = near1;
-    } else if (i % 2 === 1) {
-      grade = "2級整備士";
-      canWork = near2;
-    } else {
-      grade = "メカニック";
-      canWork = near1;
-    }
+    if (i === 0) grade = "1級整備士";
+    else if (i === size - 1) grade = "フロント";
+    else if (i % 2 === 1) grade = "2級整備士";
+    else grade = "メカニック";
 
     const name =
       SURNAMES[counter % SURNAMES.length] +
@@ -84,7 +59,6 @@ export const STAFF: Staff[] = STORES.flatMap((store) => {
       id,
       name,
       homeStoreId: store.id,
-      canWorkStoreIds: canWork,
       skills: pickSkills(grade, counter),
       grade,
     } satisfies Staff;
@@ -95,14 +69,7 @@ export const STAFF_MAP: Record<string, Staff> = Object.fromEntries(
   STAFF.map((s) => [s.id, s]),
 );
 
-/** 通常勤務がその店舗のスタッフ一覧 */
+/** その店舗に勤務するスタッフ一覧 */
 export function staffOfStore(storeId: string): Staff[] {
   return STAFF.filter((s) => s.homeStoreId === storeId);
-}
-
-/** その店舗に応援に来られるスタッフ（他店所属） */
-export function helpersForStore(storeId: string): Staff[] {
-  return STAFF.filter(
-    (s) => s.homeStoreId !== storeId && s.canWorkStoreIds.includes(storeId),
-  );
 }

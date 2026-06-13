@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { STORES, getStore, THEME_COLORS, EBIKE_BRAND, pic } from "@/lib/stores";
 import { DATES, formatDate, openSlots } from "@/lib/schedule";
-import { staffOfStore, helpersForStore } from "@/lib/staff";
+import { staffOfStore } from "@/lib/staff";
 import { Badge, Card } from "@/components/ui";
 import { Spot } from "@/lib/types";
 
@@ -28,7 +28,6 @@ export default async function StoreDetail({
     ...openSlots(store.id, d),
   }));
   const home = staffOfStore(store.id);
-  const helpers = helpersForStore(store.id);
 
   const grouped = catOrder
     .map((cat) => ({
@@ -238,11 +237,6 @@ export default async function StoreDetail({
                 </li>
               ))}
             </ul>
-            {helpers.length > 0 && (
-              <p className="mt-3 text-xs text-ink/45 border-t border-mist pt-3">
-                繁忙日は近隣店舗から最大{helpers.length}名の応援が可能です。
-              </p>
-            )}
           </Card>
         </aside>
       </div>

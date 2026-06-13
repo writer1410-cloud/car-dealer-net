@@ -97,8 +97,8 @@ export function slotsFor(storeId: string, date: string): Slot[] {
 }
 
 /**
- * その店舗・その日に出勤するスタッフ数（応援を除く所属スタッフベース）。
- * 一部スタッフは決定論的に「休み」とし、需要と人員のミスマッチを生みます。
+ * その店舗・その日に出勤する所属スタッフ数。
+ * 一部スタッフは決定論的に「休み」とします。
  */
 export function staffCountFor(storeId: string, date: string): number {
   const home = STAFF.filter((s) => s.homeStoreId === storeId);

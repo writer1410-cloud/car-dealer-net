@@ -9,7 +9,9 @@ import {
   EBIKE_BRAND,
   pic,
 } from "@/lib/stores";
-import { Card, SectionTitle, CATEGORY_PHOTOS } from "@/components/ui";
+import { Badge, Card, SectionTitle, CATEGORY_PHOTOS } from "@/components/ui";
+import { ARTICLES, articlePhoto, CATEGORY_EMOJI } from "@/lib/articles";
+import { DAY_PLANS, planPhoto, formatYen } from "@/lib/rentacar";
 
 /* ─── エリアタイルのデータ ─── */
 const AREAS = [
@@ -232,6 +234,59 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ════════════════ 兵庫おでかけ特集（記事）════════════════ */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div className="flex items-end justify-between mb-6 gap-4">
+          <SectionTitle
+            eyebrow="兵庫おでかけ特集"
+            title="兵庫の「いいとこ」、お届けします。"
+            desc="観光スポット、話題のお店、人気のパン屋さん。編集部おすすめの記事をピックアップ。"
+          />
+          <Link
+            href="/media"
+            className="shrink-0 hidden sm:inline-block text-sm font-bold text-accent hover:underline mb-6"
+          >
+            すべての記事 →
+          </Link>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {ARTICLES.filter((a) => a.featured)
+            .slice(0, 3)
+            .map((a) => (
+              <Link key={a.id} href={`/media/${a.id}`} className="group">
+                <article className="rounded-2xl overflow-hidden bg-white border border-mist shadow-sm hover:shadow-xl transition duration-300 h-full flex flex-col">
+                  <div className="relative h-44 overflow-hidden">
+                    <Image
+                      src={articlePhoto(a, 600, 400)}
+                      alt={a.title}
+                      fill
+                      sizes="(max-width:640px) 100vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge tone="accent">
+                        {CATEGORY_EMOJI[a.category]} {a.category}
+                      </Badge>
+                    </div>
+                  </div>
+                  <div className="p-4 flex-1 flex flex-col">
+                    <div className="text-xs text-ink/45 mb-1">
+                      {a.area}エリア・{a.date}
+                    </div>
+                    <h3 className="font-black leading-snug">{a.title}</h3>
+                    <p className="mt-2 text-sm text-ink/65 leading-relaxed flex-1">
+                      {a.excerpt}
+                    </p>
+                    <span className="mt-3 text-sm font-bold text-accent">
+                      記事を読む →
+                    </span>
+                  </div>
+                </article>
+              </Link>
+            ))}
+        </div>
+      </section>
+
       {/* ════════════════ 午前偏重の数字 ════════════════ */}
       <section className="mx-auto max-w-6xl px-4 py-14">
         <SectionTitle
@@ -295,7 +350,7 @@ export default function Home() {
           </h2>
           <p className="mt-2 text-white/70 max-w-2xl">
             空いている午後枠を選ぶと、まちのクーポンと電動自転車の無料レンタル。
-            自治体・商工会議所とも連携し、地域ぐるみでお出かけを応援します。
+            自治体・商工会議所とも連携し、地域ぐるみでお出かけを後押しします。
           </p>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {[
@@ -344,6 +399,58 @@ export default function Home() {
           >
             特典・地域連携をくわしく見る →
           </Link>
+        </div>
+      </section>
+
+      {/* ════════════════ レンタカープラン ════════════════ */}
+      <section className="mx-auto max-w-6xl px-4 py-14">
+        <div className="flex items-end justify-between mb-6 gap-4">
+          <SectionTitle
+            eyebrow="神戸マツダ レンタカー"
+            title="観光とセットで、お得にドライブ。"
+            desc="マツダ車で兵庫をめぐる、日帰り＆宿泊のレンタカープラン。観光クーポンもついてお得です。"
+          />
+          <Link
+            href="/rentacar"
+            className="shrink-0 hidden sm:inline-block text-sm font-bold text-accent hover:underline mb-6"
+          >
+            すべてのプラン →
+          </Link>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {DAY_PLANS.slice(0, 3).map((p) => (
+            <Link key={p.id} href="/rentacar" className="group">
+              <div className="rounded-2xl overflow-hidden bg-white border border-mist shadow-sm hover:shadow-xl transition duration-300 h-full flex flex-col">
+                <div className="relative h-40 overflow-hidden">
+                  <Image
+                    src={planPhoto(p, 600, 400)}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width:640px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition duration-500"
+                  />
+                  <div className="photo-overlay absolute inset-0" />
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    <Badge tone="sea">{p.type}</Badge>
+                    {p.badge && <Badge tone="accent">{p.badge}</Badge>}
+                  </div>
+                  <div className="absolute bottom-3 left-4 right-4 text-white">
+                    <p className="text-xs text-white/80">{p.area}エリア</p>
+                    <h3 className="text-base font-black leading-snug">{p.name}</h3>
+                  </div>
+                </div>
+                <div className="p-4 flex items-end justify-between">
+                  <div>
+                    <span className="text-xl font-black text-accent">
+                      {formatYen(p.price)}
+                    </span>
+                    <span className="text-[11px] text-ink/50"> {p.priceNote}</span>
+                  </div>
+                  <span className="text-sm font-bold text-accent">詳しく →</span>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -426,12 +533,12 @@ export default function Home() {
               color: "text-mountain",
             },
             {
-              emoji: "🤝",
+              emoji: "🚗",
               num: "03",
-              title: "スタッフが店舗をまたいで動く",
-              body: "神戸本店が空いている日は近隣の灘店へ応援。AIが需要に合わせてスタッフ配置を最適化します。",
-              href: "/staff",
-              cta: "配置を見る",
+              title: "レンタカーでもっと遠くへ",
+              body: "車を預けている間も、レンタカーや電動自転車でおでかけ自由自在。観光とセットのお得なプランも。",
+              href: "/rentacar",
+              cta: "レンタカープラン",
               color: "text-harbor",
             },
           ].map((f) => (

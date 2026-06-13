@@ -1,6 +1,6 @@
 import { Availability, ServiceMeta, Suggestion } from "./types";
-import { STORES, getStore, distanceKm, SERVICES } from "./stores";
-import { STAFF, helpersForStore } from "./staff";
+import { STORES, distanceKm, SERVICES } from "./stores";
+import { STAFF } from "./staff";
 import {
   DATES,
   dayLoadFor,
@@ -13,7 +13,7 @@ import { Area, ServiceType } from "./types";
 /**
  * AI最適化エンジン（ルールベース）。
  * 神戸マツダの複数店舗ネットワークを横断して
- *  1) 午前偏重の是正  2) 近隣店舗への振り分け  3) スタッフの応援配置
+ *  1) 午前偏重の是正  2) 近隣店舗への振り分け
  * を自動で提案します。
  */
 
@@ -171,58 +171,11 @@ export function crossStoreSuggestions(dates = DATES): Suggestion[] {
   return out.sort((a, b) => b.severity - a.severity);
 }
 
-/**
- * スタッフの応援配置提案。
- * 需要(予約台数)に対して人員が不足する店舗へ、
- * 近隣で人員に余裕のある店舗から応援可能なスタッフを提案。
- */
-export function staffMoveSuggestions(dates = DATES): Suggestion[] {
-  const out: Suggestion[] = [];
-  for (const date of dates) {
-    // 各店舗の需要(予約台数)と人員
-    const stats = STORES.map((store) => {
-      const load = dayLoadFor(store.id, date);
-      const demand = load.amBooked + load.pmBooked;
-      const staff = load.staffCount;
-      // 1人あたり処理可能台数の目安を6台とする
-      const need = Math.ceil(demand / 6);
-      return { store, demand, staff, need, gap: need - staff };
-    });
-
-    const short = stats.filter((s) => s.gap >= 1).sort((a, b) => b.gap - a.gap);
-    const spare = stats.filter((s) => s.gap <= -1);
-
-    for (const target of short) {
-      // この店舗に応援に来られるスタッフのうち、余裕のある店舗所属の人を探す
-      const helpers = helpersForStore(target.store.id).filter((h) =>
-        spare.some((sp) => sp.store.id === h.homeStoreId),
-      );
-      if (helpers.length === 0) continue;
-      const helper = helpers[0];
-      const from = getStore(helper.homeStoreId)!;
-      const dist = distanceKm(from, target.store);
-      out.push({
-        kind: "staff-move",
-        date,
-        storeId: target.store.id,
-        severity: 60 + target.gap * 10,
-        title: `${target.store.name}が人員不足 → ${from.name}から${helper.name}を応援`,
-        detail: `${target.store.name}は本日${target.demand}台の入庫予定に対し整備士${target.staff}名で約${target.gap}名不足。手すきの${from.name}（約${dist}km）から${helper.grade}・${helper.name}さん（${helper.skills.join(
-          "・",
-        )}）の応援で解消できます。`,
-        impact: `応援1名で約6台分の処理能力を補強`,
-      });
-    }
-  }
-  return out.sort((a, b) => b.severity - a.severity);
-}
-
 /** すべての提案をまとめて重要度順に返す */
 export function allSuggestions(dates = DATES): Suggestion[] {
   return [
     ...afternoonShiftSuggestions(dates),
     ...crossStoreSuggestions(dates),
-    ...staffMoveSuggestions(dates),
   ].sort((a, b) => b.severity - a.severity);
 }
 
