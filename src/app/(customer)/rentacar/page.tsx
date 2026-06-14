@@ -19,7 +19,7 @@ export default function RentacarPage() {
       {/* ヒーロー */}
       <section className="relative h-[60vh] min-h-[400px] max-h-[560px] overflow-hidden">
         <Image
-          src={photoByTags("japan,roadtrip,car", "rentacar-hero-drive", 1600, 900)}
+          src="/rentacar-hero.jpg"
           alt="レンタカーで兵庫ドライブ"
           fill
           priority

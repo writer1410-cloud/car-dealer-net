@@ -67,7 +67,7 @@ export const SPOTS: HyogoSpot[] = [
   // ───── 阪神エリア ─────
   { id: "koshien", name: "阪神甲子園球場", genre: "レジャー", area: "阪神", city: "西宮市", description: "野球の聖地。甲子園歴史館の見学も楽しい。", access: "西宮店から車で約12分", relatedStoreId: "nishinomiya", tags: ["野球", "聖地", "見学"] },
   { id: "nishinomiya-gardens", name: "阪急西宮ガーデンズ", genre: "ショッピング", area: "阪神", city: "西宮市", description: "阪神間最大級のモール。シネマや屋上庭園も。", access: "西宮店から車で約15分", relatedStoreId: "nishinomiya", tags: ["モール", "映画", "家族"] },
-  { id: "takarazuka-gekijo", name: "宝塚大劇場", genre: "観光", area: "阪神", city: "宝塚市", description: "夢と憧れの舞台。街全体に華やかな空気が漂う。", access: "宝塚店から車で約10分", relatedStoreId: "takarazuka", tags: ["歌劇", "華やか", "文化"], featured: true },
+  { id: "takarazuka-gekijo", name: "宝塚大劇場", genre: "観光", area: "阪神", city: "宝塚市", description: "夢と憧れの舞台。街全体に華やかな空気が漂う。", access: "宝塚店から車で約10分", relatedStoreId: "takarazuka", tags: ["歌劇", "華やか", "文化"], featured: true, photo: "/spots/takarazuka-gekijo.jpg" },
   { id: "itami-sky", name: "伊丹スカイパーク", genre: "レジャー", area: "阪神", city: "伊丹市", description: "滑走路の真横で離発着を間近に。迫力満点の公園。", access: "伊丹店から車で約10分", relatedStoreId: "itami", tags: ["飛行機", "公園", "子ども"] },
   { id: "sanda-outlet", name: "神戸三田プレミアム・アウトレット", genre: "ショッピング", area: "阪神", city: "三田市", description: "西日本最大級のアウトレット。一日中楽しめる。", access: "三田店から車で約12分", relatedStoreId: "sanda", tags: ["アウトレット", "買い物"] },
   { id: "sanda-cafe", name: "三田の田園カフェ", genre: "カフェ", area: "阪神", city: "三田市", description: "里山の景色を眺めながら過ごす、のどかな古民家カフェ。", access: "三田店から車で約10分", relatedStoreId: "sanda", tags: ["古民家", "のどか", "自家焙煎"] },
@@ -87,7 +87,7 @@ export const SPOTS: HyogoSpot[] = [
   { id: "kinosaki", name: "城崎温泉", genre: "温泉", area: "但馬", city: "豊岡市", description: "浴衣で外湯めぐり。柳並木の風情ある温泉街。", access: "豊岡店から車で約20分", relatedStoreId: "toyooka", tags: ["外湯めぐり", "浴衣", "名湯"], featured: true },
   { id: "genbudo", name: "玄武洞公園", genre: "自然", area: "但馬", city: "豊岡市", description: "柱状節理が織りなす不思議な造形美。", access: "豊岡店から車で約18分", relatedStoreId: "toyooka", tags: ["絶景", "地質", "散策"] },
   // ───── 淡路エリア ─────
-  { id: "awaji-uzu", name: "淡路 うずしおクルーズ", genre: "観光", area: "淡路", city: "南あわじ市", description: "世界最大級のうずしおを、観潮船で間近に体感。", access: "洲本店から車で約40分", relatedStoreId: "sumoto", tags: ["うずしお", "クルーズ", "絶景"], featured: true },
+  { id: "awaji-uzu", name: "淡路 うずしおクルーズ", genre: "観光", area: "淡路", city: "南あわじ市", description: "世界最大級のうずしおを、観潮船で間近に体感。", access: "洲本店から車で約40分", relatedStoreId: "sumoto", tags: ["うずしお", "クルーズ", "絶景"], featured: true, photo: "/spots/awaji-uzu.jpg" },
   { id: "awaji-onion", name: "淡路島玉ねぎグルメ", genre: "ランチ", area: "淡路", city: "洲本市", description: "甘くてとろける淡路島玉ねぎを使った絶品ランチ。", access: "洲本店から車で約10分", relatedStoreId: "sumoto", tags: ["玉ねぎ", "ご当地", "海カフェ"] },
   { id: "sumoto-onsen", name: "洲本温泉", genre: "温泉", area: "淡路", city: "洲本市", description: "海辺に湯けむり立つ、淡路島の温泉郷。", access: "洲本店から車で約8分", relatedStoreId: "sumoto", tags: ["海", "日帰り湯", "リゾート"] },
 ];
