@@ -31,6 +31,8 @@ export interface RentalPlan {
   langs?: string[];
   /** 英語サブタイトル（インバウンド向け） */
   subtitleEn?: string;
+  /** 個別指定の写真URL（あれば自動写真より優先） */
+  photo?: string;
 }
 
 
@@ -73,6 +75,7 @@ export const PLANS: RentalPlan[] = [
     ],
     spots: ["うずしお", "洲本温泉", "大浜海岸", "海カフェ"],
     fromStoreId: "sumoto",
+    photo: "/spots/awaji-uzu.jpg",
   },
   {
     id: "kobe-day",
@@ -203,6 +206,7 @@ export const PLAN_MAP: Record<string, RentalPlan> = Object.fromEntries(
 );
 
 export function planPhoto(p: RentalPlan, w = 1200, h = 800): string {
+  if (p.photo && p.photo.trim()) return p.photo;
   return imageFor(p.name, "japan,roadtrip", "rental-" + p.id, w, h);
 }
 
