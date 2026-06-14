@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ReactNode } from "react";
-import { pic } from "@/lib/stores";
+import { photoByTags } from "@/lib/images";
 
 /** 稼働率(0-1)から色を決める。いずれも白文字が読める濃さ。 */
 export function utilColor(util: number): string {
@@ -134,8 +134,8 @@ export function PhotoCard({
 
 /** スポットカテゴリごとの代表写真（リンク切れしない Picsum） */
 export const CATEGORY_PHOTOS: Record<string, string> = {
-  グルメ: pic("cat-gourmet", 600, 400),
-  観光: pic("cat-sightseeing", 600, 400),
-  遊び: pic("cat-play", 600, 400),
-  ショッピング: pic("cat-shopping", 600, 400),
+  グルメ: photoByTags("japanesefood", "cat-gourmet", 600, 400),
+  観光: photoByTags("japan,landmark", "cat-sightseeing", 600, 400),
+  遊び: photoByTags("amusementpark,leisure", "cat-play", 600, 400),
+  ショッピング: photoByTags("shoppingmall", "cat-shopping", 600, 400),
 };

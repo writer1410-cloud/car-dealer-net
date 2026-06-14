@@ -1,5 +1,5 @@
 import { Area } from "./types";
-import { pic } from "./stores";
+import { imageFor, genreTags } from "./images";
 import { areaOpenRanking } from "./optimizer";
 
 /** おでかけスポットのジャンル */
@@ -95,7 +95,7 @@ export const SPOT_MAP: Record<string, HyogoSpot> = Object.fromEntries(
 );
 
 export function spotPhoto(s: HyogoSpot, w = 800, h = 600): string {
-  return pic("hspot-" + s.id, w, h);
+  return imageFor(s.name, genreTags(s.genre), "hspot-" + s.id, w, h);
 }
 
 /**

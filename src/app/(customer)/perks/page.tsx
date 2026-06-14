@@ -6,15 +6,16 @@ import {
   EBIKE_BRAND,
   TOTAL_EBIKES,
   TOTAL_COUPONS,
-  pic,
 } from "@/lib/stores";
+import { photoByTags } from "@/lib/images";
 import { Badge, Card, SectionTitle } from "@/components/ui";
 
 export const metadata = {
   title: "おでかけ特典・地域連携 | 神戸マツダ ぐるっと点検ネット",
 };
 
-const IMG = (seed: string, w = 1200, h = 800) => pic(seed, w, h);
+const IMG = (tags: string, seed: string, w = 1200, h = 800) =>
+  photoByTags(tags, seed, w, h);
 
 const couponToneByPartner = (p: string) =>
   p === "自治体" ? "sea" : p === "商工会議所" ? "harbor" : "mountain";
@@ -33,7 +34,7 @@ export default function PerksPage() {
       {/* ══════ ヒーロー ══════ */}
       <section className="relative h-[60vh] min-h-[400px] max-h-[560px] overflow-hidden">
         <Image
-          src={IMG("perks-hero-cycling", 1600, 900)}
+          src={IMG("cycling,bicycle", "perks-hero-cycling", 1600, 900)}
           alt="電動自転車でおでかけ"
           fill
           priority
@@ -145,7 +146,7 @@ export default function PerksPage() {
         <div className="mx-auto max-w-6xl px-4 py-12 grid gap-8 lg:grid-cols-2 items-center">
           <div className="relative h-72 lg:h-96 rounded-2xl overflow-hidden shadow-lg order-1 lg:order-2">
             <Image
-              src={IMG("perks-ebike", 900, 700)}
+              src={IMG("electricbike,bicycle", "perks-ebike", 900, 700)}
               alt="おしゃれな電動アシスト自転車"
               fill
               sizes="(max-width:1024px) 100vw, 50vw"

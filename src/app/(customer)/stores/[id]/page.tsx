@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { THEME_COLORS, EBIKE_BRAND, pic } from "@/lib/stores";
+import { THEME_COLORS, EBIKE_BRAND } from "@/lib/stores";
+import { imageFor, categoryTags } from "@/lib/images";
 import { getStoreResolved } from "@/lib/content";
 import { DATES, formatDate, openSlots } from "@/lib/schedule";
 import { staffOfStore } from "@/lib/staff";
@@ -112,7 +113,15 @@ export default async function StoreDetail({
               </h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 {g.items.map((sp) => {
-                  const photo = sp.photo ?? pic("spot-" + sp.name, 600, 400);
+                  const photo =
+                    sp.photo ??
+                    imageFor(
+                      sp.name,
+                      categoryTags(sp.category),
+                      "spot-" + sp.name,
+                      600,
+                      400,
+                    );
                   return (
                     <div
                       key={sp.name}

@@ -1,5 +1,5 @@
 import { Area } from "./types";
-import { pic } from "./stores";
+import { imageFor } from "./images";
 
 export type PlanType = "日帰り" | "宿泊";
 
@@ -33,7 +33,6 @@ export interface RentalPlan {
   subtitleEn?: string;
 }
 
-const photo = (id: string, w = 1200, h = 800) => pic("rental-" + id, w, h);
 
 export const PLANS: RentalPlan[] = [
   // ───────── 日帰りプラン ─────────
@@ -204,7 +203,7 @@ export const PLAN_MAP: Record<string, RentalPlan> = Object.fromEntries(
 );
 
 export function planPhoto(p: RentalPlan, w = 1200, h = 800): string {
-  return photo(p.id, w, h);
+  return imageFor(p.name, "japan,roadtrip", "rental-" + p.id, w, h);
 }
 
 export const DAY_PLANS = PLANS.filter((p) => p.type === "日帰り");

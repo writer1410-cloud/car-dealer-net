@@ -1,4 +1,5 @@
 import { Store, Coupon, ServiceMeta, ServiceType } from "./types";
+import { photoByTags, imageFor } from "./images";
 
 /* ─── 画像URL（Lorem Picsum）─────────────────────────────
  * シードを与えると常に同じ実写真を返すため、リンク切れが起きません。
@@ -13,16 +14,16 @@ export const pic = (seed: string, w = 1200, h = 800) => {
   return `https://picsum.photos/seed/kmz-${slug}/${w}/${h}`;
 };
 
-/** テーマ別の代表写真（リテラル用の初期値。後段で店舗ごとに上書き） */
+/** テーマ別の代表写真（テーマ＝海／山／港に沿った関連写真） */
 const PHOTO = {
-  seaA: pic("seaA"),
-  seaB: pic("seaB"),
-  harborA: pic("harborA"),
-  harborB: pic("harborB"),
-  mountainA: pic("mountainA"),
-  mountainB: pic("mountainB"),
-  mountainC: pic("mountainC"),
-  castle: pic("castle"),
+  seaA: photoByTags("kobe,sea", "seaA", 1200, 800),
+  seaB: photoByTags("akashi,coast", "seaB", 1200, 800),
+  harborA: photoByTags("kobe,harbor", "harborA", 1200, 800),
+  harborB: photoByTags("harbor,port", "harborB", 1200, 800),
+  mountainA: photoByTags("japan,countryside", "mountainA", 1200, 800),
+  mountainB: photoByTags("japan,mountain", "mountainB", 1200, 800),
+  mountainC: photoByTags("japan,village", "mountainC", 1200, 800),
+  castle: photoByTags("himeji,castle", "castle", 1200, 800),
 };
 
 const cp = (
@@ -550,9 +551,23 @@ export const STORES: Store[] = [
   },
 ];
 
-// 店舗ごとにユニークな写真を割り当て（リンク切れしない Picsum）
+/** テーマ別の店舗写真フォールバックタグ（海／山／港） */
+const THEME_TAGS: Record<Store["theme"], string> = {
+  sea: "japan,sea,coast",
+  mountain: "japan,countryside,mountain",
+  harbor: "harbor,port,kobe",
+  castle: "himeji,castle",
+};
+
+// 店舗ごとに、立地・テーマに合った関連写真を割り当て
 for (const s of STORES) {
-  s.photo = pic(s.id);
+  s.photo = imageFor(
+    s.catch + " " + s.name,
+    THEME_TAGS[s.theme],
+    "store-" + s.id,
+    1200,
+    800,
+  );
 }
 
 export const STORE_MAP: Record<string, Store> = Object.fromEntries(

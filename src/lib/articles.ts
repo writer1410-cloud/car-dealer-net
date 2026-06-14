@@ -1,5 +1,5 @@
 import { Area } from "./types";
-import { pic } from "./stores";
+import { imageFor } from "./images";
 
 /** 兵庫おでかけ記事のカテゴリ */
 export type ArticleCategory = "観光" | "グルメ" | "パン" | "カフェ" | "体験" | "イベント";
@@ -29,7 +29,15 @@ export interface Article {
   photo?: string;
 }
 
-const photo = (id: string, w = 1200, h = 800) => pic("article-" + id, w, h);
+/** 記事カテゴリ別のフォールバックタグ（タイトル未一致時） */
+const ARTICLE_CAT_TAGS: Record<ArticleCategory, string> = {
+  観光: "japan,landmark",
+  グルメ: "japanesefood",
+  パン: "bakery",
+  カフェ: "cafe",
+  体験: "workshop,experience",
+  イベント: "festival,event",
+};
 
 export const ARTICLES: Article[] = [
   {
@@ -228,7 +236,14 @@ export function getArticle(id: string): Article | undefined {
 
 /** 記事のメイン写真URL */
 export function articlePhoto(a: Article, w = 1200, h = 800): string {
-  return a.photo && a.photo.trim() ? a.photo : photo(a.id, w, h);
+  if (a.photo && a.photo.trim()) return a.photo;
+  return imageFor(
+    a.title + " " + a.tags.join(" "),
+    ARTICLE_CAT_TAGS[a.category],
+    "article-" + a.id,
+    w,
+    h,
+  );
 }
 
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [

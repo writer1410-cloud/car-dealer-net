@@ -5,10 +5,10 @@ import {
   TOTAL_COUPONS,
   TOTAL_EBIKES,
   EBIKE_BRAND,
-  pic,
 } from "@/lib/stores";
 import { Badge, SectionTitle } from "@/components/ui";
 import { articlePhoto, CATEGORY_EMOJI } from "@/lib/articles";
+import { photoByTags, genreTags } from "@/lib/images";
 import { getArticles, getStoresResolved } from "@/lib/content";
 import { DAY_PLANS, planPhoto, formatYen } from "@/lib/rentacar";
 import {
@@ -27,7 +27,7 @@ const AREAS = [
     sub: "港・海・グルメ",
     desc: "神戸ハーバー・南京町・異人館…海風と異国情緒の街をめぐりながら。",
     area: "神戸",
-    photo: pic("area-kobe-hanshin", 900, 600),
+    photo: photoByTags("kobe,harbor,sea", "area-kobe-hanshin", 900, 600),
     tag: "sea" as const,
     emoji: "⛵",
     stores: ["神戸本店", "灘店", "垂水多聞店", "西宮店"],
@@ -37,7 +37,7 @@ const AREAS = [
     sub: "城・自然・名物グルメ",
     desc: "姫路城・明石海峡・城崎温泉・淡路うずしお…播磨から但馬・淡路まで。",
     area: "西播磨",
-    photo: pic("area-harima-tajima-awaji", 900, 600),
+    photo: photoByTags("himeji,castle", "area-harima-tajima-awaji", 900, 600),
     tag: "mountain" as const,
     emoji: "🏯",
     stores: ["姫路店", "大久保店", "豊岡店", "洲本店"],
@@ -66,7 +66,9 @@ export default function Home() {
     const rep = SPOTS.find((s) => s.genre === g);
     return {
       genre: g,
-      photo: rep ? spotPhoto(rep, 400, 300) : pic("genre-" + g, 400, 300),
+      photo: rep
+        ? spotPhoto(rep, 400, 300)
+        : photoByTags(genreTags(g), "genre-" + g, 400, 300),
     };
   });
 
