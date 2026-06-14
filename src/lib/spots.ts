@@ -51,16 +51,18 @@ export interface HyogoSpot {
   relatedStoreId: string;
   tags: string[];
   featured?: boolean;
+  /** 個別指定の写真URL（あれば自動写真より優先） */
+  photo?: string;
 }
 
 export const SPOTS: HyogoSpot[] = [
   // ───── 神戸エリア ─────
   { id: "nankinmachi", name: "南京町（神戸中華街）", genre: "グルメ", area: "神戸", city: "神戸市中央区", description: "豚まん・小籠包の食べ歩きが楽しい、活気あふれる中華街。", access: "神戸本店から車で約10分", relatedStoreId: "kobe-honten", tags: ["食べ歩き", "中華", "定番"], featured: true },
   { id: "kobe-bakery", name: "神戸の名物ベーカリー", genre: "パン", area: "神戸", city: "神戸市中央区", description: "パンのまち神戸を代表する、山型食パンと焼きたてクロワッサン。", access: "神戸本店から車で約7分", relatedStoreId: "kobe-honten", tags: ["パン屋", "食パン", "話題"], featured: true },
-  { id: "kitano-cafe", name: "北野の坂道カフェ", genre: "カフェ", area: "神戸", city: "神戸市中央区", description: "異人館街の見晴らしのいいテラスで、ひと息つける人気カフェ。", access: "神戸本店から車で約15分", relatedStoreId: "kobe-honten", tags: ["眺望", "テラス", "映え"], featured: true },
+  { id: "kitano-cafe", name: "北野の坂道カフェ", genre: "カフェ", area: "神戸", city: "神戸市中央区", description: "異人館街の見晴らしのいいテラスで、ひと息つける人気カフェ。", access: "神戸本店から車で約15分", relatedStoreId: "kobe-honten", tags: ["眺望", "テラス", "映え"], featured: true, photo: "/spots/kitano-cafe.jpg" },
   { id: "harborland", name: "神戸ハーバーランド umie", genre: "ショッピング", area: "神戸", city: "神戸市中央区", description: "海沿いの大型モール。観覧車やグルメも充実。", access: "神戸本店から車で約9分", relatedStoreId: "kobe-honten", tags: ["モール", "海沿い", "家族"] },
-  { id: "rokko-bokujo", name: "六甲山牧場", genre: "レジャー", area: "神戸", city: "神戸市灘区", description: "羊やヤギとふれあえる高原牧場。チーズ作り体験も。", access: "灘店から車で約30分", relatedStoreId: "nada", tags: ["動物", "高原", "体験"], featured: true },
-  { id: "arima-onsen", name: "有馬温泉", genre: "温泉", area: "神戸", city: "神戸市北区", description: "日本三古湯のひとつ。金泉・銀泉の名湯めぐり。", access: "北神店から車で約20分", relatedStoreId: "hokushin", tags: ["名湯", "日帰り湯", "風情"], featured: true },
+  { id: "rokko-bokujo", name: "六甲山牧場", genre: "レジャー", area: "神戸", city: "神戸市灘区", description: "羊やヤギとふれあえる高原牧場。チーズ作り体験も。", access: "灘店から車で約30分", relatedStoreId: "nada", tags: ["動物", "高原", "体験"], featured: true, photo: "/spots/rokko-bokujo.jpg" },
+  { id: "arima-onsen", name: "有馬温泉", genre: "温泉", area: "神戸", city: "神戸市北区", description: "日本三古湯のひとつ。金泉・銀泉の名湯めぐり。", access: "北神店から車で約20分", relatedStoreId: "hokushin", tags: ["名湯", "日帰り湯", "風情"], featured: true, photo: "/spots/arima-onsen.webp" },
   { id: "maiko-bridge", name: "舞子公園・明石海峡大橋", genre: "観光", area: "神戸", city: "神戸市垂水区", description: "世界最大級の吊り橋を真下から。海上散歩も楽しめる。", access: "垂水多聞店から車で約8分", relatedStoreId: "tarumi-tamon", tags: ["橋", "絶景", "海"] },
   // ───── 阪神エリア ─────
   { id: "koshien", name: "阪神甲子園球場", genre: "レジャー", area: "阪神", city: "西宮市", description: "野球の聖地。甲子園歴史館の見学も楽しい。", access: "西宮店から車で約12分", relatedStoreId: "nishinomiya", tags: ["野球", "聖地", "見学"] },
@@ -95,6 +97,7 @@ export const SPOT_MAP: Record<string, HyogoSpot> = Object.fromEntries(
 );
 
 export function spotPhoto(s: HyogoSpot, w = 800, h = 600): string {
+  if (s.photo && s.photo.trim()) return s.photo;
   return imageFor(s.name, genreTags(s.genre), "hspot-" + s.id, w, h);
 }
 
