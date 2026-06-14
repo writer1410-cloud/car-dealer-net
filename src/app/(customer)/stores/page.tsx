@@ -1,13 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { STORES, THEME_COLORS } from "@/lib/stores";
+import { THEME_COLORS } from "@/lib/stores";
+import { getStoresResolved } from "@/lib/content";
 import { Badge } from "@/components/ui";
 
+export const dynamic = "force-dynamic";
 export const metadata = {
   title: "店舗・おでかけスポット | 神戸マツダ ぐるっと点検ネット",
 };
 
 export default function StoresPage() {
+  const stores = getStoresResolved();
   return (
     <div>
       {/* ページヘッダー */}
@@ -28,7 +31,7 @@ export default function StoresPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-6 md:grid-cols-2">
-          {STORES.map((s) => {
+          {stores.map((s) => {
             const theme = THEME_COLORS[s.theme];
             return (
               <div

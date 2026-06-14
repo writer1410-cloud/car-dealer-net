@@ -1,15 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { STORES, getStore, THEME_COLORS, EBIKE_BRAND, pic } from "@/lib/stores";
+import { THEME_COLORS, EBIKE_BRAND, pic } from "@/lib/stores";
+import { getStoreResolved } from "@/lib/content";
 import { DATES, formatDate, openSlots } from "@/lib/schedule";
 import { staffOfStore } from "@/lib/staff";
 import { Badge, Card } from "@/components/ui";
 import { Spot } from "@/lib/types";
 
-export function generateStaticParams() {
-  return STORES.map((s) => ({ id: s.id }));
-}
+export const dynamic = "force-dynamic";
 
 const catOrder: Spot["category"][] = ["グルメ", "観光", "遊び", "ショッピング"];
 
@@ -19,7 +18,7 @@ export default async function StoreDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const store = getStore(id);
+  const store = getStoreResolved(id);
   if (!store) notFound();
 
   const theme = THEME_COLORS[store.theme];

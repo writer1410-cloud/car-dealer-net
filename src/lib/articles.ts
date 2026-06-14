@@ -25,6 +25,8 @@ export interface Article {
   relatedStoreId?: string;
   /** おすすめ度（PICK UP表示などに使用） */
   featured?: boolean;
+  /** メイン画像URL（管理画面で差し替え可。未設定なら自動画像） */
+  photo?: string;
 }
 
 const photo = (id: string, w = 1200, h = 800) => pic("article-" + id, w, h);
@@ -226,7 +228,7 @@ export function getArticle(id: string): Article | undefined {
 
 /** 記事のメイン写真URL */
 export function articlePhoto(a: Article, w = 1200, h = 800): string {
-  return photo(a.id, w, h);
+  return a.photo && a.photo.trim() ? a.photo : photo(a.id, w, h);
 }
 
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [

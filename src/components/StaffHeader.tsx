@@ -8,6 +8,8 @@ const staffNav = [
   { href: "/staff", label: "ダッシュボード" },
   { href: "/staff/members", label: "スタッフ体制" },
   { href: "/staff/ai", label: "AI最適化" },
+  { href: "/staff/content", label: "コンテンツ管理" },
+  { href: "/staff/site", label: "サイト画像" },
 ];
 
 export function StaffHeader() {
@@ -54,6 +56,12 @@ export function StaffHeader() {
           >
             ← お客様ページ
           </Link>
+          <a
+            href="/api/admin/logout"
+            className="ml-2 text-xs text-white/50 hover:text-white"
+          >
+            ログアウト
+          </a>
         </nav>
 
         <button
@@ -90,6 +98,12 @@ export function StaffHeader() {
           >
             ← お客様ページへ戻る
           </Link>
+          <a
+            href="/api/admin/logout"
+            className="block px-3 py-2 rounded-lg text-xs text-white/50"
+          >
+            ログアウト
+          </a>
         </div>
       )}
     </header>

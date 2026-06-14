@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 管理画面が書き込むコンテンツ（ローカル/Node実行環境のみ）
+/content/

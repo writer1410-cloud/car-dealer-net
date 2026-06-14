@@ -1,18 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ARTICLES,
-  getArticle,
-  articlePhoto,
-  CATEGORY_EMOJI,
-} from "@/lib/articles";
+import { articlePhoto, CATEGORY_EMOJI } from "@/lib/articles";
+import { getArticles, getArticleById } from "@/lib/content";
 import { getStore } from "@/lib/stores";
 import { Badge, Card } from "@/components/ui";
 
-export function generateStaticParams() {
-  return ARTICLES.map((a) => ({ id: a.id }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function ArticleDetail({
   params,
@@ -20,7 +14,7 @@ export default async function ArticleDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const article = getArticle(id);
+  const article = getArticleById(id);
   if (!article) notFound();
 
   const store = article.relatedStoreId
@@ -28,7 +22,7 @@ export default async function ArticleDetail({
     : undefined;
 
   // 関連記事（同カテゴリ or 同エリア）
-  const related = ARTICLES.filter(
+  const related = getArticles().filter(
     (a) =>
       a.id !== article.id &&
       (a.category === article.category || a.area === article.area),

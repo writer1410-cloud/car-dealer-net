@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import {
-  STORES,
   THEME_COLORS,
   TOTAL_COUPONS,
   TOTAL_EBIKES,
@@ -9,7 +8,8 @@ import {
   pic,
 } from "@/lib/stores";
 import { Badge, SectionTitle } from "@/components/ui";
-import { ARTICLES, articlePhoto, CATEGORY_EMOJI } from "@/lib/articles";
+import { articlePhoto, CATEGORY_EMOJI } from "@/lib/articles";
+import { getArticles, getStoresResolved } from "@/lib/content";
 import { DAY_PLANS, planPhoto, formatYen } from "@/lib/rentacar";
 import {
   featuredSpots,
@@ -44,7 +44,11 @@ const AREAS = [
   },
 ];
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
+  const articles = getArticles();
+  const stores = getStoresResolved();
   // 空きが多いエリアの注目スポットを自動カルーセル表示
   const carousel = featuredSpots(7).map((s) => ({
     name: s.name,
@@ -131,7 +135,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {ARTICLES.filter((a) => a.featured)
+          {articles.filter((a) => a.featured)
             .slice(0, 3)
             .map((a) => (
               <Link key={a.id} href={`/media/${a.id}`} className="group">
@@ -364,11 +368,11 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-14">
           <SectionTitle
             eyebrow="OUR NETWORK"
-            title={`兵庫県内 ${STORES.length} 店舗。あなたの「行き先」のそばに。`}
+            title={`兵庫県内 ${stores.length} 店舗。あなたの「行き先」のそばに。`}
             desc="どのエリアにおでかけしても、近くの神戸マツダで車検・点検が受けられます。"
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {STORES.map((s) => {
+            {stores.map((s) => {
               const theme = THEME_COLORS[s.theme];
               return (
                 <Link key={s.id} href={`/stores/${s.id}`} className="group">

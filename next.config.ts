@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "picsum.photos" },
       { protocol: "https", hostname: "fastly.picsum.photos" },
       { protocol: "https", hostname: "images.unsplash.com" },
+      // 管理画面で差し替える任意の画像URLを許可
+      { protocol: "https", hostname: "**" },
     ],
   },
 };
