@@ -7,6 +7,7 @@ import { getStoreResolved } from "@/lib/content";
 import { DATES, formatDate, openSlots } from "@/lib/schedule";
 import { staffOfStore } from "@/lib/staff";
 import { Badge, Card } from "@/components/ui";
+import { TravelTimes } from "@/components/TravelTimes";
 import { Spot } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -146,9 +147,7 @@ export default async function StoreDetail({
                         <p className="mt-1 text-xs text-ink/65 leading-relaxed">
                           {sp.description}
                         </p>
-                        <p className="mt-2 text-xs text-accent font-bold">
-                          🚗 {sp.access}
-                        </p>
+                        <TravelTimes access={sp.access} className="mt-2" />
                       </div>
                     </div>
                   );

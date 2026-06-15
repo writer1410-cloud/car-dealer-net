@@ -14,6 +14,7 @@ import {
 import { AREA_LIST } from "@/lib/optimizer";
 import { Area } from "@/lib/types";
 import { Badge } from "@/components/ui";
+import { TravelTimes } from "@/components/TravelTimes";
 
 export default function SpotsPage() {
   return (
@@ -139,7 +140,7 @@ function SpotsInner() {
                   <p className="mt-1.5 text-sm text-ink/65 leading-relaxed flex-1">
                     {s.description}
                   </p>
-                  <p className="mt-2 text-xs text-ink/45">🚗 {s.access}</p>
+                  <TravelTimes access={s.access} className="mt-2" />
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {s.tags.map((t) => (
                       <span
