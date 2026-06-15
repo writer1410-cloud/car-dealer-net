@@ -57,8 +57,8 @@ export interface HyogoSpot {
 
 export const SPOTS: HyogoSpot[] = [
   // ───── 神戸エリア ─────
-  { id: "nankinmachi", name: "南京町（神戸中華街）", genre: "グルメ", area: "神戸", city: "神戸市中央区", description: "豚まん・小籠包の食べ歩きが楽しい、活気あふれる中華街。", access: "神戸本店から車で約10分", relatedStoreId: "kobe-honten", tags: ["食べ歩き", "中華", "定番"], featured: true },
-  { id: "kobe-bakery", name: "神戸の名物ベーカリー", genre: "パン", area: "神戸", city: "神戸市中央区", description: "パンのまち神戸を代表する、山型食パンと焼きたてクロワッサン。", access: "神戸本店から車で約7分", relatedStoreId: "kobe-honten", tags: ["パン屋", "食パン", "話題"], featured: true },
+  { id: "nankinmachi", name: "南京町（神戸中華街）", genre: "グルメ", area: "神戸", city: "神戸市中央区", description: "豚まん・小籠包の食べ歩きが楽しい、活気あふれる中華街。", access: "神戸本店から車で約10分", relatedStoreId: "kobe-honten", tags: ["食べ歩き", "中華", "定番"], featured: true, photo: "/spots/nankinmachi.jpg" },
+  { id: "kobe-bakery", name: "神戸の名物ベーカリー", genre: "パン", area: "神戸", city: "神戸市中央区", description: "パンのまち神戸を代表する、山型食パンと焼きたてクロワッサン。", access: "神戸本店から車で約7分", relatedStoreId: "kobe-honten", tags: ["パン屋", "食パン", "話題"], featured: true, photo: "/spots/kobe-bakery.jpg" },
   { id: "kitano-cafe", name: "北野の坂道カフェ", genre: "カフェ", area: "神戸", city: "神戸市中央区", description: "異人館街の見晴らしのいいテラスで、ひと息つける人気カフェ。", access: "神戸本店から車で約15分", relatedStoreId: "kobe-honten", tags: ["眺望", "テラス", "映え"], featured: true, photo: "/spots/kitano-cafe.jpg" },
   { id: "harborland", name: "神戸ハーバーランド umie", genre: "ショッピング", area: "神戸", city: "神戸市中央区", description: "海沿いの大型モール。観覧車やグルメも充実。", access: "神戸本店から車で約9分", relatedStoreId: "kobe-honten", tags: ["モール", "海沿い", "家族"] },
   { id: "rokko-bokujo", name: "六甲山牧場", genre: "レジャー", area: "神戸", city: "神戸市灘区", description: "羊やヤギとふれあえる高原牧場。チーズ作り体験も。", access: "灘店から車で約30分", relatedStoreId: "nada", tags: ["動物", "高原", "体験"], featured: true, photo: "/spots/rokko-bokujo.jpg" },
