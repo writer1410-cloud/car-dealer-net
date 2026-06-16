@@ -1,11 +1,13 @@
 import { Store, Coupon, ServiceMeta, ServiceType } from "./types";
-import { photoByTags, imageFor } from "./images";
+import { photoByTags, imageFor, offlineImage, OFFLINE } from "./images";
 
 /* ─── 画像URL（Lorem Picsum）─────────────────────────────
  * シードを与えると常に同じ実写真を返すため、リンク切れが起きません。
  * next/image の remotePatterns に picsum.photos を設定済み。
+ * オフラインモードでは端末内生成のプレースホルダ画像を返す。
  * ─────────────────────────────────────────────────────── */
 export const pic = (seed: string, w = 1200, h = 800) => {
+  if (OFFLINE) return offlineImage("kobe,landscape", seed, w, h);
   // 日本語など非ASCIIを含むシードでもURLが壊れないよう、ASCIIスラッグ＋ハッシュ化
   let hash = 0;
   for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;

@@ -8,6 +8,11 @@ import { Badge, Card } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
+// オフライン静的書き出し（build:offline）で全記事ページを事前生成するため
+export function generateStaticParams() {
+  return getArticles().map((a) => ({ id: a.id }));
+}
+
 export default async function ArticleDetail({
   params,
 }: {

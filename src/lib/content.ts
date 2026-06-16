@@ -4,6 +4,7 @@ import path from "path";
 import { ARTICLES as SEED_ARTICLES, Article } from "./articles";
 import { STORES } from "./stores";
 import { Store } from "./types";
+import { OFFLINE, isRemoteUrl } from "./images";
 
 /**
  * 管理画面で編集したコンテンツの保存先（サーバーのJSONファイル）。
@@ -29,7 +30,14 @@ function writeJSON(file: string, data: unknown): void {
 /* ───────── 記事 ───────── */
 
 export function getArticles(): Article[] {
-  return readJSON<Article[]>("articles.json", SEED_ARTICLES);
+  const list = readJSON<Article[]>("articles.json", SEED_ARTICLES);
+  // オフラインでは外部URLの画像は表示できないため自動画像にフォールバックさせる
+  if (OFFLINE) {
+    return list.map((a) =>
+      isRemoteUrl(a.photo) ? { ...a, photo: undefined } : a,
+    );
+  }
+  return list;
 }
 
 export function getArticleById(id: string): Article | undefined {
@@ -58,10 +66,12 @@ export function saveSiteSettings(s: SiteSettings): void {
 /** 画像上書きを反映した店舗一覧（サーバーコンポーネント用） */
 export function getStoresResolved(): Store[] {
   const { storeImages } = getSiteSettings();
-  return STORES.map((s) => ({
-    ...s,
-    photo: storeImages[s.id]?.trim() ? storeImages[s.id] : s.photo,
-  }));
+  return STORES.map((s) => {
+    const override = storeImages[s.id]?.trim();
+    // オフラインでは外部URLの上書きは無視し、自動画像にフォールバック
+    const photo = override && !(OFFLINE && isRemoteUrl(override)) ? override : s.photo;
+    return { ...s, photo };
+  });
 }
 
 export function getStoreResolved(id: string): Store | undefined {

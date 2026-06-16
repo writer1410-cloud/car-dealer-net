@@ -1,5 +1,5 @@
 import { Area } from "./types";
-import { photoByTags } from "./images";
+import { photoByTags, offlineImage, OFFLINE } from "./images";
 import { TODAY, formatDate } from "./schedule";
 
 /** レジャーイベントのカテゴリ */
@@ -332,6 +332,16 @@ export const EVENT_MAP: Record<string, HyogoEvent> = Object.fromEntries(
 
 export function eventPhoto(e: HyogoEvent, w = 800, h = 600): string {
   if (e.photo && e.photo.trim()) return e.photo;
+  // オフラインではカテゴリ絵文字を主役にしたプレースホルダを返す
+  if (OFFLINE) {
+    return offlineImage(
+      EVENT_CATEGORY_TAGS[e.category],
+      "hevent-" + e.id,
+      w,
+      h,
+      EVENT_EMOJI[e.category],
+    );
+  }
   return photoByTags(EVENT_CATEGORY_TAGS[e.category], "hevent-" + e.id, w, h);
 }
 

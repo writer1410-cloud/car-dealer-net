@@ -10,11 +10,101 @@
 
 const BASE = "https://loremflickr.com";
 
+/* オフライン（プレゼン用静的書き出し）モード。
+ * NEXT_PUBLIC_OFFLINE=1 のとき、外部の写真サービスへアクセスせず、
+ * 端末内で生成したブランド風プレースホルダ画像（SVGデータURI）を返す。 */
+export const OFFLINE = process.env.NEXT_PUBLIC_OFFLINE === "1";
+
+/** http(s) で始まる外部URLかどうか */
+export const isRemoteUrl = (u?: string): boolean =>
+  !!u && /^https?:\/\//.test(u);
+
 /** シード文字列から決定的な lock 値（1..999）を作る */
 function lock(seed: string): number {
   let h = 0;
   for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
   return (h % 999) + 1;
+}
+
+/* タグ・名称 → 絵文字（上から順にマッチ。オフライン画像の主役） */
+const OFFLINE_EMOJI: [RegExp, string][] = [
+  [/chinatown/, "🏮"],
+  [/bread|bakery/, "🥖"],
+  [/octopus/, "🐙"],
+  [/oden|cutlet/, "🍢"],
+  [/onion|vegetable/, "🧅"],
+  [/seafood|sushi|fish/, "🍣"],
+  [/japanesefood|restaurant|food/, "🍱"],
+  [/onsen/, "♨️"],
+  [/himeji|castle/, "🏯"],
+  [/sheep|farm/, "🐑"],
+  [/vineyard|grape|wine/, "🍇"],
+  [/bridge/, "🌉"],
+  [/whirlpool/, "🌀"],
+  [/baseball|stadium/, "⚾"],
+  [/theater|stage/, "🎭"],
+  [/airplane|airport/, "✈️"],
+  [/safari|animal|zoo/, "🦁"],
+  [/ferriswheel|amusement|leisure/, "🎡"],
+  [/shoppingmall|mall|shop/, "🛍️"],
+  [/vintagehouse|landmark/, "🏛️"],
+  [/tower/, "🗼"],
+  [/harbor|port/, "⚓"],
+  [/rockformation|cliff/, "🪨"],
+  [/planetarium/, "🔭"],
+  [/park/, "🌸"],
+  [/temple|shrine/, "⛩️"],
+  [/oldtown/, "🏘️"],
+  [/countryside|village/, "🌾"],
+  [/resort/, "🏝️"],
+  [/cafe|coffee/, "☕"],
+  [/nightview|city/, "🌃"],
+  [/sea|coast|beach|ocean/, "🏖️"],
+  [/mountain/, "⛰️"],
+  [/nature|landscape/, "🏞️"],
+  [/roadtrip|car/, "🚗"],
+];
+
+/* 上品なグラデーション配色（ブランドトーンに寄せた組み合わせ） */
+const OFFLINE_PALETTES: [string, string][] = [
+  ["#1f2937", "#4b5563"],
+  ["#0f3d57", "#2a7fa3"],
+  ["#3b2f2f", "#7c5a4a"],
+  ["#16413b", "#3f8c7a"],
+  ["#3a2c4d", "#7a5c9e"],
+  ["#5a3a1e", "#b07a3c"],
+  ["#1e3a5f", "#5b8fb0"],
+  ["#4a1f2b", "#9e5666"],
+  ["#22343a", "#577a85"],
+  ["#2d3a1f", "#6f8c4a"],
+];
+
+function offlineEmoji(label: string): string {
+  for (const [re, e] of OFFLINE_EMOJI) if (re.test(label)) return e;
+  return "📍";
+}
+
+/** 端末内で完結するプレースホルダ画像（SVGデータURI）を生成
+ *  emoji を渡すとその絵文字を、無ければ label から推定した絵文字を使う。 */
+export function offlineImage(
+  label: string,
+  seed: string,
+  w = 800,
+  h = 600,
+  emoji?: string,
+): string {
+  const l = lock(seed);
+  const [c1, c2] = OFFLINE_PALETTES[l % OFFLINE_PALETTES.length];
+  const glyph = emoji ?? offlineEmoji(label.toLowerCase());
+  const fs = Math.round(Math.min(w, h) * 0.42);
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'>` +
+    `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>` +
+    `<stop offset='0' stop-color='${c1}'/><stop offset='1' stop-color='${c2}'/></linearGradient></defs>` +
+    `<rect width='${w}' height='${h}' fill='url(#g)'/>` +
+    `<text x='50%' y='52%' text-anchor='middle' dominant-baseline='middle' font-size='${fs}'>${glyph}</text>` +
+    `</svg>`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
 /** 英語タグ（カンマ区切り）と寸法から関連写真URLを生成 */
@@ -24,6 +114,7 @@ export function photoByTags(
   w = 800,
   h = 600,
 ): string {
+  if (OFFLINE) return offlineImage(tags, seed, w, h);
   const clean = tags.replace(/\s+/g, "");
   return `${BASE}/${w}/${h}/${clean}?lock=${lock(seed)}`;
 }

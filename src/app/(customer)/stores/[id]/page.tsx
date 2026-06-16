@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { THEME_COLORS, EBIKE_BRAND } from "@/lib/stores";
 import { imageFor, categoryTags } from "@/lib/images";
-import { getStoreResolved } from "@/lib/content";
+import { getStoreResolved, getStoresResolved } from "@/lib/content";
 import { DATES, formatDate, openSlots } from "@/lib/schedule";
 import { staffOfStore } from "@/lib/staff";
 import { Badge, Card } from "@/components/ui";
@@ -11,6 +11,11 @@ import { TravelTimes } from "@/components/TravelTimes";
 import { Spot } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
+
+// オフライン静的書き出し（build:offline）で全店舗ページを事前生成するため
+export function generateStaticParams() {
+  return getStoresResolved().map((s) => ({ id: s.id }));
+}
 
 const catOrder: Spot["category"][] = ["グルメ", "観光", "遊び", "ショッピング"];
 
