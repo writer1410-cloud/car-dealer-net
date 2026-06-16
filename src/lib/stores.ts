@@ -311,7 +311,7 @@ export const STORES: Store[] = [
       cp("灘の酒蔵", "🍶", "試飲 1杯サービス", "商工会議所"),
     ],
     spots: [
-      { name: "阪神甲子園球場", category: "遊び", emoji: "⚾", description: "野球の聖地。甲子園歴史館の見学も楽しい。", access: "車で約12分" },
+      { name: "阪神甲子園球場", category: "遊び", emoji: "⚾", description: "野球の聖地。甲子園歴史館の見学も楽しい。", access: "車で約12分", photo: "/spots/koshien.jpg" },
       { name: "阪急西宮ガーデンズ", category: "ショッピング", emoji: "🛍️", description: "阪神間最大級のモール。屋上庭園も。", access: "車で約15分" },
       { name: "西宮神社（えびす宮総本社）", category: "観光", emoji: "⛩️", description: "福の神えびす様の総本社。福男選びで有名。", access: "車で約14分" },
     ],
@@ -489,7 +489,7 @@ export const STORES: Store[] = [
       cp("姫路おでん提携店", "🍢", "姫路おでん 1本サービス", "商工会議所"),
     ],
     spots: [
-      { name: "世界遺産 姫路城", category: "観光", emoji: "🏯", description: "白鷺城の愛称で知られる現存天守。国宝見学を。", access: "車で約20分" },
+      { name: "世界遺産 姫路城", category: "観光", emoji: "🏯", description: "白鷺城の愛称で知られる現存天守。国宝見学を。", access: "車で約20分", photo: "/spots/himeji-castle.jpg" },
       { name: "姫路セントラルパーク", category: "遊び", emoji: "🦁", description: "サファリと遊園地。一日たっぷり遊べる。", access: "車で約25分" },
       { name: "姫路おでん／あなご料理", category: "グルメ", emoji: "🍢", description: "生姜醤油の姫路おでんと瀬戸内のあなご。", access: "市内各所" },
       { name: "書写山圓教寺", category: "観光", emoji: "🚡", description: "山上の大伽藍へロープウェイで空中散歩。", access: "車で約30分" },

@@ -65,7 +65,7 @@ export const SPOTS: HyogoSpot[] = [
   { id: "arima-onsen", name: "有馬温泉", genre: "温泉", area: "神戸", city: "神戸市北区", description: "日本三古湯のひとつ。金泉・銀泉の名湯めぐり。", access: "北神店から車で約20分", relatedStoreId: "hokushin", tags: ["名湯", "日帰り湯", "風情"], featured: true, photo: "/spots/arima-onsen.webp" },
   { id: "maiko-bridge", name: "舞子公園・明石海峡大橋", genre: "観光", area: "神戸", city: "神戸市垂水区", description: "世界最大級の吊り橋を真下から。海上散歩も楽しめる。", access: "垂水多聞店から車で約8分", relatedStoreId: "tarumi-tamon", tags: ["橋", "絶景", "海"] },
   // ───── 阪神エリア ─────
-  { id: "koshien", name: "阪神甲子園球場", genre: "レジャー", area: "阪神", city: "西宮市", description: "野球の聖地。甲子園歴史館の見学も楽しい。", access: "西宮店から車で約12分", relatedStoreId: "nishinomiya", tags: ["野球", "聖地", "見学"] },
+  { id: "koshien", name: "阪神甲子園球場", genre: "レジャー", area: "阪神", city: "西宮市", description: "野球の聖地。甲子園歴史館の見学も楽しい。", access: "西宮店から車で約12分", relatedStoreId: "nishinomiya", tags: ["野球", "聖地", "見学"], photo: "/spots/koshien.jpg" },
   { id: "nishinomiya-gardens", name: "阪急西宮ガーデンズ", genre: "ショッピング", area: "阪神", city: "西宮市", description: "阪神間最大級のモール。シネマや屋上庭園も。", access: "西宮店から車で約15分", relatedStoreId: "nishinomiya", tags: ["モール", "映画", "家族"] },
   { id: "takarazuka-gekijo", name: "宝塚大劇場", genre: "観光", area: "阪神", city: "宝塚市", description: "夢と憧れの舞台。街全体に華やかな空気が漂う。", access: "宝塚店から車で約10分", relatedStoreId: "takarazuka", tags: ["歌劇", "華やか", "文化"], featured: true, photo: "/spots/takarazuka-gekijo.jpg" },
   { id: "itami-sky", name: "伊丹スカイパーク", genre: "レジャー", area: "阪神", city: "伊丹市", description: "滑走路の真横で離発着を間近に。迫力満点の公園。", access: "伊丹店から車で約10分", relatedStoreId: "itami", tags: ["飛行機", "公園", "子ども"] },
@@ -76,7 +76,7 @@ export const SPOTS: HyogoSpot[] = [
   { id: "akashi-park", name: "明石公園", genre: "自然", area: "東播磨", city: "明石市", description: "明石城跡を中心とした広大な公園。桜やボートも。", access: "大久保店から車で約13分", relatedStoreId: "okubo", tags: ["公園", "桜", "城跡"] },
   { id: "kakogawa-katsumeshi", name: "加古川かつめし", genre: "ランチ", area: "東播磨", city: "加古川市", description: "ビフカツにデミグラス。加古川のソウルフード。", access: "加古川店周辺の各店", relatedStoreId: "kakogawa", tags: ["ご当地", "ボリューム"] },
   // ───── 西播磨エリア ─────
-  { id: "himeji-castle", name: "世界遺産 姫路城", genre: "観光", area: "西播磨", city: "姫路市", description: "白鷺城の愛称で知られる国宝。天守からの眺めは格別。", access: "姫路店から車で約20分", relatedStoreId: "himeji", tags: ["世界遺産", "国宝", "定番"], featured: true },
+  { id: "himeji-castle", name: "世界遺産 姫路城", genre: "観光", area: "西播磨", city: "姫路市", description: "白鷺城の愛称で知られる国宝。天守からの眺めは格別。", access: "姫路店から車で約20分", relatedStoreId: "himeji", tags: ["世界遺産", "国宝", "定番"], featured: true, photo: "/spots/himeji-castle.jpg" },
   { id: "himeji-central", name: "姫路セントラルパーク", genre: "レジャー", area: "西播磨", city: "姫路市", description: "サファリと遊園地、夏はプールも。一日たっぷり遊べる。", access: "姫路東店から車で約12分", relatedStoreId: "himeji-higashi", tags: ["サファリ", "遊園地", "家族"], featured: true },
   { id: "himeji-oden", name: "姫路おでん", genre: "グルメ", area: "西播磨", city: "姫路市", description: "生姜醤油でいただく姫路名物。城下のあなご料理も。", access: "姫路店周辺の各店", relatedStoreId: "himeji", tags: ["おでん", "ご当地"] },
   { id: "tatsuno-cafe", name: "龍野 城下町カフェ", genre: "カフェ", area: "西播磨", city: "たつの市", description: "淡口醤油の城下町・龍野の、風情ある古民家カフェ。", access: "太子店から車で約15分", relatedStoreId: "taishi", tags: ["城下町", "古民家", "醤油"] },
