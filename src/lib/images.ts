@@ -8,6 +8,8 @@
  * 直接読み込みます（ホストはワイルドカードで許可済み）。
  * ───────────────────────────────────────────────────────────── */
 
+import { OFFLINE_PHOTO_FILES } from "./offline-photos.generated";
+
 const BASE = "https://loremflickr.com";
 
 /* オフライン（プレゼン用静的書き出し）モード。
@@ -84,15 +86,53 @@ function offlineEmoji(label: string): string {
   return "📍";
 }
 
-/** 端末内で完結するプレースホルダ画像（SVGデータURI）を生成
- *  emoji を渡すとその絵文字を、無ければ label から推定した絵文字を使う。 */
+/* タグ・名称（英語タグ）→ テーマのスラッグ。
+ * public/offline/<スラッグ>.jpg があれば、その実写真をオフラインで使う。
+ * 上から順にマッチ（具体的なものを先に）。 */
+const THEME_RULES: [RegExp, string][] = [
+  [/bread|bakery/, "bakery"],
+  [/cafe|coffee/, "cafe"],
+  [/onsen/, "onsen"],
+  [/himeji|castle/, "castle"],
+  [/temple|shrine/, "temple"],
+  [/farm|sheep|vineyard|grape/, "farm"],
+  [/nightview/, "night"],
+  [/shoppingmall|mall|shop/, "shopping"],
+  [/amusement|leisure|ferriswheel|safari|animal|zoo|stadium|baseball|theater|stage|planetarium|airport|airplane/, "leisure"],
+  [/sea|coast|beach|harbor|port|bridge|whirlpool|ocean/, "sea"],
+  [/japanesefood|restaurant|seafood|sushi|octopus|oden|cutlet|onion|fish|food/, "gourmet"],
+  [/resort/, "resort"],
+  [/nature|landscape|mountain|park|cliff|rockformation|countryside|village/, "nature"],
+  [/chinatown|vintagehouse|oldtown|tower|landmark|temple/, "sightseeing"],
+  [/store|kobe/, "store"],
+];
+
+/** 英語タグ → テーマスラッグ */
+export function themeSlug(label: string): string {
+  const l = label.toLowerCase();
+  for (const [re, slug] of THEME_RULES) if (re.test(l)) return slug;
+  return "store";
+}
+
+/** オフライン用のローカル実写真パス（public/offline 内にあれば）。無ければ null。 */
+export function offlineLocalPhoto(slug: string): string | null {
+  return OFFLINE_PHOTO_FILES[slug] ?? null;
+}
+
+/** オフライン用の画像を返す。
+ *  1) public/offline/<slug>.jpg などの実写真があればそれを、
+ *  2) 無ければ端末内生成のプレースホルダ（SVGデータURI）を返す。
+ *  emoji: 未指定なら label から絵文字を推定。slug: 未指定なら label から推定。 */
 export function offlineImage(
   label: string,
   seed: string,
   w = 800,
   h = 600,
   emoji?: string,
+  slug?: string,
 ): string {
+  const local = offlineLocalPhoto(slug ?? themeSlug(label));
+  if (local) return local;
   const l = lock(seed);
   const [c1, c2] = OFFLINE_PALETTES[l % OFFLINE_PALETTES.length];
   const glyph = emoji ?? offlineEmoji(label.toLowerCase());

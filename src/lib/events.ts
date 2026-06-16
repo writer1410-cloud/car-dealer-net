@@ -35,6 +35,18 @@ export const EVENT_EMOJI: Record<EventCategory, string> = {
   "マルシェ・市": "🛒",
 };
 
+/** カテゴリ別のオフライン用テーマスラッグ（public/offline/<slug>.jpg を使う） */
+const EVENT_THEME: Record<EventCategory, string> = {
+  祭り: "event-festival",
+  花火: "event-fireworks",
+  イルミネーション: "event-illumination",
+  アート: "event-art",
+  "音楽・ステージ": "event-music",
+  スポーツ: "event-sports",
+  "体験・収穫": "event-harvest",
+  "マルシェ・市": "event-market",
+};
+
 /** カテゴリ別の写真タグ（自動写真のフォールバック） */
 const EVENT_CATEGORY_TAGS: Record<EventCategory, string> = {
   祭り: "japanesefestival,matsuri",
@@ -332,7 +344,7 @@ export const EVENT_MAP: Record<string, HyogoEvent> = Object.fromEntries(
 
 export function eventPhoto(e: HyogoEvent, w = 800, h = 600): string {
   if (e.photo && e.photo.trim()) return e.photo;
-  // オフラインではカテゴリ絵文字を主役にしたプレースホルダを返す
+  // オフラインでは実写真(public/offline)があればそれを、無ければカテゴリ絵文字の画像を返す
   if (OFFLINE) {
     return offlineImage(
       EVENT_CATEGORY_TAGS[e.category],
@@ -340,6 +352,7 @@ export function eventPhoto(e: HyogoEvent, w = 800, h = 600): string {
       w,
       h,
       EVENT_EMOJI[e.category],
+      EVENT_THEME[e.category],
     );
   }
   return photoByTags(EVENT_CATEGORY_TAGS[e.category], "hevent-" + e.id, w, h);

@@ -60,6 +60,33 @@ function restoreSources() {
   backups.clear();
 }
 
+// public/offline/ 内の実写真を走査し、テーマスラッグ→配信パスの一覧を生成する。
+// （ファイル名の拡張子を除いた部分がスラッグ。例: gourmet.jpg → "gourmet"）
+function genManifest() {
+  const rel = path.join("src", "lib", "offline-photos.generated.ts");
+  const file = path.join(root, rel);
+  backups.set(rel, fs.readFileSync(file, "utf8"));
+
+  const dir = path.join(root, "public", "offline");
+  const map = {};
+  if (fs.existsSync(dir)) {
+    for (const name of fs.readdirSync(dir)) {
+      const m = name.match(/^(.+)\.(jpe?g|png|webp|avif|gif)$/i);
+      if (m) map[m[1]] = `/offline/${name}`;
+    }
+  }
+  const count = Object.keys(map).length;
+  console.log(`  実写真(public/offline): ${count}件を反映`);
+  fs.writeFileSync(
+    file,
+    "/* 自動生成ファイル — 直接編集しないでください。 */\n" +
+      "export const OFFLINE_PHOTO_FILES: Record<string, string> = " +
+      JSON.stringify(map, null, 2) +
+      ";\n",
+    "utf8",
+  );
+}
+
 function stash() {
   fs.rmSync(stashDir, { recursive: true, force: true });
   fs.mkdirSync(stashDir, { recursive: true });
@@ -89,6 +116,7 @@ function restore() {
 console.log("▶ オフライン静的サイトを書き出します (out/)\n");
 stash();
 patchSources();
+genManifest();
 let code = 1;
 try {
   const res = spawnSync(
