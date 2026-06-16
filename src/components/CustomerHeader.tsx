@@ -8,6 +8,7 @@ const customerNav = [
   { href: "/", label: "ホーム" },
   { href: "/media", label: "おでかけ特集" },
   { href: "/spots", label: "ジャンルで探す" },
+  { href: "/events", label: "イベント" },
   { href: "/rentacar", label: "レンタカー" },
   { href: "/stores", label: "店舗・空き枠" },
   { href: "/perks", label: "特典" },

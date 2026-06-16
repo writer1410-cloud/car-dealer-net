@@ -19,6 +19,13 @@ import {
   spotPhoto,
 } from "@/lib/spots";
 import { FeaturedCarousel } from "@/components/FeaturedCarousel";
+import {
+  upcomingEvents,
+  eventPhoto,
+  eventStatus,
+  formatEventDate,
+  EVENT_EMOJI,
+} from "@/lib/events";
 
 /* ─── エリアタイルのデータ ─── */
 const AREAS = [
@@ -49,6 +56,8 @@ export const dynamic = "force-dynamic";
 export default function Home() {
   const articles = getArticles();
   const stores = getStoresResolved();
+  // 近日開催の兵庫レジャーイベント
+  const events = upcomingEvents(4);
   // 空きが多いエリアの注目スポットを自動カルーセル表示
   const carousel = featuredSpots(7).map((s) => ({
     name: s.name,
@@ -116,6 +125,82 @@ export default function Home() {
           <div className="mt-4 text-right">
             <Link href="/spots" className="text-sm font-bold text-accent hover:underline">
               すべてのスポットを見る →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════ 近日開催のイベント ════════════════ */}
+      <section className="bg-white border-b border-mist">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <div className="flex items-end justify-between mb-6 gap-4">
+            <SectionTitle
+              eyebrow="兵庫のおでかけイベント"
+              title="この週末、どこへ行く？"
+              desc="花火・お祭り・イルミネーション・アート…兵庫県内のレジャーイベントをピックアップ。"
+            />
+            <Link
+              href="/events"
+              className="shrink-0 hidden sm:inline-block text-sm font-bold text-accent hover:underline mb-6"
+            >
+              すべてのイベント →
+            </Link>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {events.map((e) => {
+              const status = eventStatus(e);
+              return (
+                <Link key={e.id} href="/events" className="group">
+                  <article className="rounded-2xl overflow-hidden bg-white border border-mist shadow-sm hover:shadow-xl transition duration-300 h-full flex flex-col">
+                    <div className="relative h-36 overflow-hidden">
+                      <Image
+                        src={eventPhoto(e, 500, 350)}
+                        alt={e.name}
+                        fill
+                        sizes="(max-width:640px) 100vw, 25vw"
+                        className="object-cover group-hover:scale-105 transition duration-500"
+                      />
+                      <div className="absolute top-3 left-3">
+                        <Badge tone="accent">
+                          {EVENT_EMOJI[e.category]} {e.category}
+                        </Badge>
+                      </div>
+                      <div className="absolute top-3 right-3">
+                        <span
+                          className={`rounded-full px-2.5 py-1 text-[11px] font-bold ${
+                            status === "開催中"
+                              ? "bg-emerald-500 text-white"
+                              : status === "まもなく"
+                                ? "bg-amber-500 text-white"
+                                : "bg-ink/70 text-white"
+                          }`}
+                        >
+                          {status}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-4 flex-1 flex flex-col">
+                      <div className="text-xs text-ink/45 mb-1">
+                        {e.area}エリア・{e.city}
+                      </div>
+                      <h3 className="font-black leading-snug text-sm">
+                        {e.name}
+                      </h3>
+                      <p className="mt-1.5 text-xs font-bold text-accent">
+                        📅 {formatEventDate(e)}
+                      </p>
+                    </div>
+                  </article>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="mt-6 text-center sm:hidden">
+            <Link
+              href="/events"
+              className="text-sm font-bold text-accent hover:underline"
+            >
+              すべてのイベントを見る →
             </Link>
           </div>
         </div>
