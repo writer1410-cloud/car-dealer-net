@@ -51,6 +51,7 @@ export const ARTICLES: Article[] = [
     tags: ["姫路城", "世界遺産", "半日コース", "家族"],
     relatedStoreId: "himeji",
     featured: true,
+    photo: "/articles/himeji-castle-walk.jpg",
     sections: [
       {
         heading: "まずは大手門から天守へ",
@@ -77,6 +78,7 @@ export const ARTICLES: Article[] = [
     tags: ["城崎温泉", "外湯めぐり", "浴衣", "但馬"],
     relatedStoreId: "toyooka",
     featured: true,
+    photo: "/articles/kinosaki-onsen-day.jpg",
     sections: [
       {
         heading: "浴衣に着替えて、いざ外湯へ",
@@ -99,6 +101,7 @@ export const ARTICLES: Article[] = [
     tags: ["明石焼き", "魚の棚", "タコ", "食べ歩き"],
     relatedStoreId: "okubo",
     featured: false,
+    photo: "/articles/akashi-tako-gourmet.jpg",
     sections: [
       {
         heading: "昼網の魚介がずらり",
@@ -121,6 +124,7 @@ export const ARTICLES: Article[] = [
     tags: ["パン屋", "神戸", "食パン", "クロワッサン"],
     relatedStoreId: "kobe-honten",
     featured: true,
+    photo: "/spots/kobe-bakery.jpg",
     sections: [
       {
         heading: "朝いちばんの焼きたてを狙う",
@@ -147,6 +151,7 @@ export const ARTICLES: Article[] = [
     tags: ["淡路島", "うずしお", "玉ねぎ", "ドライブ"],
     relatedStoreId: "sumoto",
     featured: false,
+    photo: "/articles/awaji-island-trip.jpg",
     sections: [
       {
         heading: "迫力のうずしおを間近で",
@@ -169,6 +174,7 @@ export const ARTICLES: Article[] = [
     tags: ["六甲山", "有馬温泉", "アウトドア", "牧場"],
     relatedStoreId: "hokushin",
     featured: false,
+    photo: "/articles/rokko-arima-nature.webp",
     sections: [
       {
         heading: "六甲山でアクティブに",
@@ -191,6 +197,7 @@ export const ARTICLES: Article[] = [
     tags: ["宝塚", "歌劇", "手塚治虫", "カルチャー"],
     relatedStoreId: "takarazuka",
     featured: false,
+    photo: "/articles/takarazuka-culture.jpg",
     sections: [
       {
         heading: "花のみち〜大劇場へ",
@@ -213,6 +220,7 @@ export const ARTICLES: Article[] = [
     tags: ["パン屋", "古民家カフェ", "龍野", "太子"],
     relatedStoreId: "taishi",
     featured: false,
+    photo: "/articles/harima-bakery-cafe.jpg",
     sections: [
       {
         heading: "醤油のまち・龍野のベーカリー",
