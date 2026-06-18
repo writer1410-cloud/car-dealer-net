@@ -153,6 +153,27 @@ export const PLANS: RentalPlan[] = [
     spots: ["うずしお", "洲本温泉", "ONOKORO", "淡路島グルメ"],
     fromStoreId: "sumoto",
   },
+  {
+    id: "arima-golf-stay",
+    name: "有馬温泉＆ゴルフ 1泊2日プラン",
+    type: "宿泊",
+    area: "神戸",
+    price: 32800,
+    priceNote: "/ 1名（1泊2食・プレー代込み・レンタカー込み）",
+    carClass: "ミドル〜SUV（ゴルフバッグ積載OK）",
+    catch: "名コースでのラウンドと、名湯・有馬温泉でリフレッシュ。",
+    badge: "新着",
+    includes: [
+      "レンタカー 2日間（ゴルフバッグ積載OK）",
+      "有馬温泉 旅館1泊2食付き",
+      "ゴルフ場 1ラウンドプレー代込み（カート・昼食付き）",
+      "金泉・銀泉 入浴",
+      "ETC・カーナビ・免責補償込み",
+    ],
+    spots: ["有馬温泉", "金泉・銀泉", "有馬周辺ゴルフ場", "六甲山"],
+    fromStoreId: "hokushin",
+    photo: "/spots/arima-golf.jpg",
+  },
   // ───────── インバウンド向けプラン（神戸空港 国際化対応）─────────
   {
     id: "kobe-airport-1day",
