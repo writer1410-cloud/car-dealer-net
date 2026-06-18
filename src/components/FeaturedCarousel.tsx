@@ -64,7 +64,7 @@ export function FeaturedCarousel({ items }: { items: CarouselItem[] }) {
             兵庫おでかけメディア
           </span>
           <p className="mt-3 text-white/90 text-sm md:text-base font-bold drop-shadow">
-            いま、空きが多いエリアの注目スポット
+            いま、注目のスポット
           </p>
         </div>
 
