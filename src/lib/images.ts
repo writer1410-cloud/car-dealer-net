@@ -76,7 +76,7 @@ const OFFLINE_PALETTES: [string, string][] = [
   ["#3a2c4d", "#7a5c9e"],
   ["#5a3a1e", "#b07a3c"],
   ["#1e3a5f", "#5b8fb0"],
-  ["#4a1f2b", "#9e5666"],
+  ["#3a3530", "#7a6f60"],
   ["#22343a", "#577a85"],
   ["#2d3a1f", "#6f8c4a"],
 ];
