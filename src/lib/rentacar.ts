@@ -95,7 +95,7 @@ export const PLANS: RentalPlan[] = [
     ],
     spots: ["南京町", "メリケンパーク", "話題のベーカリー", "ハーバーランド"],
     fromStoreId: "kobe-honten",
-    photo: "/spots/kobe-day.webp",
+    photo: "/spots/kobe-day.jpg",
   },
   {
     id: "akashi-day",
