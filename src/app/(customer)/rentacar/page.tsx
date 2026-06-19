@@ -5,7 +5,6 @@ import {
   STAY_PLANS,
   INBOUND_PLANS,
 } from "@/lib/rentacar";
-import { photoByTags } from "@/lib/images";
 import { Card, SectionTitle } from "@/components/ui";
 import { PlanCard } from "@/components/PlanCard";
 
@@ -90,7 +89,7 @@ export default function RentacarPage() {
         <section className="mx-auto max-w-6xl px-4 py-10 grid gap-5 md:grid-cols-2">
           <Link href="/rentacar/day" className="group">
             <div className="relative h-44 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-              <Image src={photoByTags("japan,daytrip,nature", "rentacar-day", 800, 400)} alt="日帰りプラン" fill sizes="50vw" className="object-cover group-hover:scale-105 transition duration-500" />
+              <Image src="/rentacar-day.jpg" alt="日帰りプラン" fill sizes="50vw" className="object-cover group-hover:scale-105 transition duration-500" />
               <div className="photo-overlay absolute inset-0" />
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
                 <h3 className="text-2xl font-black text-white">日帰りプラン</h3>
@@ -100,7 +99,7 @@ export default function RentacarPage() {
           </Link>
           <Link href="/rentacar/stay" className="group">
             <div className="relative h-44 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition">
-              <Image src={photoByTags("onsen,resort,japan", "rentacar-stay", 800, 400)} alt="宿泊プラン" fill sizes="50vw" className="object-cover group-hover:scale-105 transition duration-500" />
+              <Image src="/rentacar-stay.jpg" alt="宿泊プラン" fill sizes="50vw" className="object-cover group-hover:scale-105 transition duration-500" />
               <div className="photo-overlay absolute inset-0" />
               <div className="absolute inset-0 p-6 flex flex-col justify-end">
                 <h3 className="text-2xl font-black text-white">宿泊プラン</h3>
