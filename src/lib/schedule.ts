@@ -92,8 +92,23 @@ export function allSlots(): Slot[] {
   return _slots;
 }
 
+/** storeId|date でのスロット索引（毎回 filter せず O(1) で引く） */
+let _slotIndex: Map<string, Slot[]> | null = null;
+function slotIndex(): Map<string, Slot[]> {
+  if (!_slotIndex) {
+    _slotIndex = new Map();
+    for (const s of allSlots()) {
+      const key = s.storeId + "|" + s.date;
+      const arr = _slotIndex.get(key);
+      if (arr) arr.push(s);
+      else _slotIndex.set(key, [s]);
+    }
+  }
+  return _slotIndex;
+}
+
 export function slotsFor(storeId: string, date: string): Slot[] {
-  return allSlots().filter((s) => s.storeId === storeId && s.date === date);
+  return slotIndex().get(storeId + "|" + date) ?? [];
 }
 
 /**

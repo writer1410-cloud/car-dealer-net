@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState, Suspense } from "react";
+import { useMemo, useState, useDeferredValue, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { recommendStores, AREA_LIST } from "@/lib/optimizer";
 import { SERVICE_LIST } from "@/lib/stores";
@@ -25,10 +25,18 @@ function AvailabilityInner() {
   const [date, setDate] = useState<string>(TODAY);
   const [service, setService] = useState<ServiceType>("車検");
 
-const results = useMemo(
-    () => recommendStores({ destinationArea: area, date, service }),
-    [area, date, service],
+  // 重いレコメンド計算は遅延値で評価する。
+  // セレクトの表示更新（緊急）を先に描画し、結果の再計算は中断可能な
+  // 非緊急レンダーに回すことで、操作直後のもたつき（INP）を抑える。
+  const dArea = useDeferredValue(area);
+  const dDate = useDeferredValue(date);
+  const dService = useDeferredValue(service);
+  const results = useMemo(
+    () => recommendStores({ destinationArea: dArea, date: dDate, service: dService }),
+    [dArea, dDate, dService],
   );
+  // 再計算中（遅延値が追いつくまで）は結果を薄く表示
+  const isStale = dArea !== area || dDate !== date || dService !== service;
 
   return (
     <div>
@@ -107,7 +115,11 @@ const results = useMemo(
         </Card>
 
         {/* 結果 */}
-        <div className="space-y-5">
+        <div
+          className={`space-y-5 transition-opacity duration-200 ${
+            isStale ? "opacity-60" : "opacity-100"
+          }`}
+        >
           {results.length === 0 && (
             <Card className="p-8 text-center text-ink/60">
               この条件では空きが見つかりませんでした。日付やエリアを変えてお試しください。
