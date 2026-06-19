@@ -56,6 +56,7 @@ export const PLANS: RentalPlan[] = [
     ],
     spots: ["姫路城", "好古園", "書写山圓教寺", "城下町グルメ"],
     fromStoreId: "himeji",
+    photo: "/spots/himeji-day.jpg",
   },
   {
     id: "awaji-day",
@@ -94,6 +95,7 @@ export const PLANS: RentalPlan[] = [
     ],
     spots: ["南京町", "メリケンパーク", "話題のベーカリー", "ハーバーランド"],
     fromStoreId: "kobe-honten",
+    photo: "/spots/kobe-day.webp",
   },
   {
     id: "akashi-day",
