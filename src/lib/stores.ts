@@ -61,10 +61,10 @@ export const STORES: Store[] = [
       cp("umie モザイク大観覧車", "🎡", "ペア搭乗 200円引き", "提携店舗"),
     ],
     spots: [
-      { name: "南京町（神戸中華街）", category: "グルメ", emoji: "🥟", description: "食べ歩きの聖地。豚まん・小籠包で賑わう中華街。", access: "車で約10分" },
-      { name: "メリケンパーク／神戸ポートタワー", category: "観光", emoji: "🗼", description: "海辺の絶景スポット。リニューアルしたタワーは必見。", access: "車で約8分" },
-      { name: "北野異人館街", category: "観光", emoji: "🏛️", description: "坂の上のレトロな洋館めぐり。写真映え抜群。", access: "車で約15分" },
-      { name: "神戸ハーバーランド umie", category: "ショッピング", emoji: "🛍️", description: "海沿いの大型モール。観覧車も。", access: "車で約9分" },
+      { name: "南京町（神戸中華街）", category: "グルメ", emoji: "🥟", description: "食べ歩きの聖地。豚まん・小籠包で賑わう中華街。", access: "車で約10分", photo: "/spots/nankinmachi.jpg" },
+      { name: "メリケンパーク／神戸ポートタワー", category: "観光", emoji: "🗼", description: "海辺の絶景スポット。リニューアルしたタワーは必見。", access: "車で約8分", photo: "/spots/meriken-porttower.jpg" },
+      { name: "北野異人館街", category: "観光", emoji: "🏛️", description: "坂の上のレトロな洋館めぐり。写真映え抜群。", access: "車で約15分", photo: "/spots/kitano-ijinkan.jpg" },
+      { name: "神戸ハーバーランド umie", category: "ショッピング", emoji: "🛍️", description: "海沿いの大型モール。観覧車も。", access: "車で約9分", photo: "/spots/umie.jpg" },
     ],
   },
   {
