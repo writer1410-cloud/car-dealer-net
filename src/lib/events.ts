@@ -102,6 +102,7 @@ export const EVENTS: HyogoEvent[] = [
     relatedStoreId: "nada",
     tags: ["あじさい", "自然", "避暑"],
     featured: true,
+    photo: "/events/rokko-hydrangea.jpg",
   },
   {
     id: "nesta-firefly",
@@ -117,6 +118,7 @@ export const EVENTS: HyogoEvent[] = [
     relatedStoreId: "miki",
     tags: ["ホタル", "ナイト", "家族"],
     featured: true,
+    photo: "/events/nesta-firefly.jpg",
   },
   {
     id: "kobe-bird-marche",
@@ -147,6 +149,7 @@ export const EVENTS: HyogoEvent[] = [
     relatedStoreId: "kobe-honten",
     tags: ["花火", "海", "夏の定番"],
     featured: true,
+    photo: "/events/kobe-kaijo-hanabi.jpg",
   },
   {
     id: "awaji-matsuri",
@@ -219,6 +222,7 @@ export const EVENTS: HyogoEvent[] = [
     relatedStoreId: "tarumi-tamon",
     tags: ["絶景", "ツアー", "橋"],
     featured: true,
+    photo: "/events/akashi-bridge-world.jpg",
   },
   // ───── 秋 ─────
   {
