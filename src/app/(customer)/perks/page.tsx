@@ -34,7 +34,7 @@ export default function PerksPage() {
       {/* ══════ ヒーロー ══════ */}
       <section className="relative h-[60vh] min-h-[400px] max-h-[560px] overflow-hidden">
         <Image
-          src={IMG("cycling,bicycle", "perks-hero-cycling", 1600, 900)}
+          src="/perks-hero.png"
           alt="電動自転車でおでかけ"
           fill
           priority
