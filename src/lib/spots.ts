@@ -96,8 +96,21 @@ export const SPOT_MAP: Record<string, HyogoSpot> = Object.fromEntries(
   SPOTS.map((s) => [s.id, s]),
 );
 
+/**
+ * ジャンル別の代表写真（個別写真を持たないスポットの既定画像）。
+ * レジャー＝ゴジラ、観光＝時計台、自然＝山、ランチ＝ご飯。
+ */
+export const GENRE_PHOTO: Partial<Record<Genre, string>> = {
+  レジャー: "/spots/genre-leisure.webp",
+  観光: "/spots/genre-sightseeing.webp",
+  自然: "/spots/genre-nature.webp",
+  ランチ: "/spots/genre-lunch.webp",
+};
+
 export function spotPhoto(s: HyogoSpot, w = 800, h = 600): string {
   if (s.photo && s.photo.trim()) return s.photo;
+  const byGenre = GENRE_PHOTO[s.genre];
+  if (byGenre) return byGenre;
   return imageFor(s.name, genreTags(s.genre), "hspot-" + s.id, w, h);
 }
 
