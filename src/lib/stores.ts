@@ -561,15 +561,52 @@ const THEME_TAGS: Record<Store["theme"], string> = {
   castle: "himeji,castle",
 };
 
-// 店舗ごとに、立地・テーマに合った関連写真を割り当て
+/**
+ * 店舗カードの写真は「その店舗エリア周辺の観光地」の実写真を使用します。
+ * （public/ 配下に同梱した兵庫各地の写真。リスト未掲載の店舗は
+ *  最寄りエリアの代表写真でフォールバック）
+ */
+const STORE_PHOTO: Record<string, string> = {
+  // 神戸エリア
+  "kobe-honten": "/spots/meriken-porttower.jpg", // メリケンパーク／神戸ポートタワー
+  "kobe-nishi": "/spots/kobe-bakery.jpg", // 神戸郊外の街並み
+  nada: "/spots/kobe-day.jpg", // 灘・六甲山麓の神戸市街
+  "tarumi-tamon": "/events/akashi-bridge-world.jpg", // 舞子公園／明石海峡大橋
+  hokushin: "/spots/arima-onsen.webp", // 有馬温泉
+  // 阪神エリア
+  sanda: "/spots/arima-golf.jpg", // 有馬富士・三田の高原リゾート
+  amagasaki: "/areas/kobe-hanshin.jpg", // 阪神間の街並み
+  itami: "/articles/harima-bakery-cafe.jpg", // 阪神間のカフェ・街歩き
+  kawanishi: "/events/rokko-hydrangea.jpg", // 川西の里山・あじさい
+  takarazuka: "/spots/takarazuka-gekijo.jpg", // 宝塚大劇場
+  nishinomiya: "/spots/koshien.jpg", // 阪神甲子園球場
+  // 北播磨エリア
+  miki: "/events/nesta-firefly.jpg", // ネスタリゾート神戸
+  nishiwaki: "/areas/harima-tajima-awaji.jpg", // 北播磨の田園
+  // 東播磨エリア
+  kakogawa: "/spots/himeji-day.jpg", // 東播磨・播磨の街並み
+  okubo: "/articles/akashi-tako-gourmet.jpg", // 明石名物（魚の棚・明石焼き）
+  // 西播磨エリア
+  "himeji-higashi": "/articles/himeji-castle-walk.jpg", // 姫路城下の街歩き
+  taishi: "/spots/himeji-castle.jpg", // 世界遺産・姫路城
+  himeji: "/spots/himeji-castle.jpg", // 世界遺産・姫路城
+  // 但馬エリア
+  toyooka: "/articles/kinosaki-onsen-day.jpg", // 城崎温泉
+  // 淡路エリア
+  sumoto: "/spots/awaji-uzu.jpg", // 淡路のうずしお
+};
+
+// 店舗ごとに、エリア周辺の観光地写真を割り当て（未設定はテーマ写真でフォールバック）
 for (const s of STORES) {
-  s.photo = imageFor(
-    s.catch + " " + s.name,
-    THEME_TAGS[s.theme],
-    "store-" + s.id,
-    1200,
-    800,
-  );
+  s.photo =
+    STORE_PHOTO[s.id] ??
+    imageFor(
+      s.catch + " " + s.name,
+      THEME_TAGS[s.theme],
+      "store-" + s.id,
+      1200,
+      800,
+    );
 }
 
 export const STORE_MAP: Record<string, Store> = Object.fromEntries(
