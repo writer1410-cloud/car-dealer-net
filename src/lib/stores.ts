@@ -575,7 +575,7 @@ const STORE_PHOTO: Record<string, string> = {
   hokushin: "/spots/arima-onsen.webp", // 有馬温泉
   // 阪神エリア
   sanda: "/spots/arima-golf.jpg", // 有馬富士・三田の高原リゾート
-  amagasaki: "/areas/kobe-hanshin.jpg", // 阪神間の街並み
+  amagasaki: "/stores/amagasaki-castle.webp", // 尼崎城
   itami: "/articles/harima-bakery-cafe.jpg", // 阪神間のカフェ・街歩き
   kawanishi: "/events/rokko-hydrangea.jpg", // 川西の里山・あじさい
   takarazuka: "/spots/takarazuka-gekijo.jpg", // 宝塚大劇場
@@ -587,8 +587,8 @@ const STORE_PHOTO: Record<string, string> = {
   kakogawa: "/spots/himeji-day.jpg", // 東播磨・播磨の街並み
   okubo: "/articles/akashi-tako-gourmet.jpg", // 明石名物（魚の棚・明石焼き）
   // 西播磨エリア
-  "himeji-higashi": "/articles/himeji-castle-walk.jpg", // 姫路城下の街歩き
-  taishi: "/spots/himeji-castle.jpg", // 世界遺産・姫路城
+  "himeji-higashi": "/stores/himeji-centralpark.webp", // 姫路セントラルパーク
+  taishi: "/stores/ikarugadera.webp", // 斑鳩寺（三重塔）
   himeji: "/spots/himeji-castle.jpg", // 世界遺産・姫路城
   // 但馬エリア
   toyooka: "/articles/kinosaki-onsen-day.jpg", // 城崎温泉
