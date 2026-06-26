@@ -73,10 +73,35 @@ export default async function ArticleDetail({
         {article.sections.map((s) => (
           <section key={s.heading} className="mb-9">
             <h2 className="text-xl font-black mb-3 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-accent rounded-full inline-block" />
+              <span className="w-1.5 h-6 bg-accent rounded-full inline-block shrink-0" />
               {s.heading}
             </h2>
-            <p className="text-ink/75 leading-loose">{s.body}</p>
+            {s.image && (
+              <figure className="mb-4">
+                <div className="relative aspect-[3/2] overflow-hidden rounded-2xl">
+                  <Image
+                    src={s.image}
+                    alt={s.imageCaption ?? s.heading}
+                    fill
+                    sizes="(max-width:768px) 100vw, 768px"
+                    className="object-cover"
+                  />
+                </div>
+                {s.imageCaption && (
+                  <figcaption className="mt-2 text-xs text-ink/50">
+                    {s.imageCaption}
+                  </figcaption>
+                )}
+              </figure>
+            )}
+            {s.body.split(/\n\n+/).map((para, i) => (
+              <p
+                key={i}
+                className="text-ink/75 leading-loose whitespace-pre-line mb-4 last:mb-0"
+              >
+                {para}
+              </p>
+            ))}
           </section>
         ))}
 
