@@ -135,6 +135,7 @@ export const PLANS: RentalPlan[] = [
     ],
     spots: ["城崎温泉", "外湯めぐり", "玄武洞", "城崎マリンワールド"],
     fromStoreId: "toyooka",
+    photo: "/articles/kinosaki-onsen-day.jpg",
   },
   {
     id: "awaji-stay",
@@ -154,6 +155,7 @@ export const PLANS: RentalPlan[] = [
     ],
     spots: ["うずしお", "洲本温泉", "ONOKORO", "淡路島グルメ"],
     fromStoreId: "sumoto",
+    photo: "/spots/awaji-resort.webp",
   },
   {
     id: "arima-golf-stay",
@@ -221,6 +223,7 @@ export const PLANS: RentalPlan[] = [
     ],
     spots: ["姫路城", "書写山圓教寺", "城崎温泉", "玄武洞"],
     fromStoreId: "himeji",
+    photo: "/spots/himeji-castle.jpg",
   },
 ];
 
